@@ -23,9 +23,9 @@ export default function RootLayout(props: Props) {
       <html lang="en" className="text-main-900">
         <body className={outfit.className}>
           <header className="bg-neutral-100">
-            <nav className="navbar bg-neutral-100 text-main-600">
+            <nav className="navbar bg-neutral-100 text-main-700">
               <div className="navbar-start">
-                <Image src={sageLogo} alt="" className="h-12 w-auto pl-4" />
+                <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
                 <div className="dropdown">
                   <label tabIndex={0} className="btn btn-ghost lg:hidden">
                     <svg
@@ -105,12 +105,12 @@ export default function RootLayout(props: Props) {
               <div className="navbar-end gap-4">
                 <Link
                   href="/login"
-                  className="btn px-6 rounded-full border bg-decoration-700 text-decoration-50 hover:bg-decoration-50 hover:text-decoration-800 hover:border-0 transform-none lowercase text-lg"
+                  className="btn px-6 rounded-full border bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-50 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
                 >
                   login
                 </Link>
                 <Link
-                  className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:border-0 lowercase text-lg"
+                  className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 lowercase text-lg"
                   href="/signup"
                 >
                   sign up
@@ -118,7 +118,7 @@ export default function RootLayout(props: Props) {
               </div>
             </nav>
           </header>
-          {props.children}{' '}
+          {props.children}
           <footer className="footer items-center p-4 bg-neutral-100 text-m text-main-700">
             <aside className="items-center grid-flow-col">
               <p>Copyright © 2023 - All right reserved</p>
