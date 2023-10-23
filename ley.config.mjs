@@ -1,7 +1,7 @@
-import { setEnvironmentVariables } from './util/config.mjs';
-
 // async function environmentVariables() {
 //   const setEnvironmentVariables = await import('./util/config.mjs');
+// import dotenv from 'dotenv';
+import { setEnvironmentVariables } from './util/config.mjs';
 
 //   return setEnvironmentVariables();
 // }
