@@ -1,8 +1,12 @@
+import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
+import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createUser, getUserByUsername } from '../../../../database/users';
-import { User } from '../../../../migrations/00000-createTableUsers';
+import { createSession } from '../../../database/sessions';
+import { createUser, getUserByUsername } from '../../../database/users';
+import { User } from '../../../migrations/00000-createTableUsers';
+import { secureCookieOptions } from '../../../util/cookies';
 
 const registerSchema = z.object({
   username: z.string().min(3),
@@ -53,7 +57,29 @@ export async function POST(
   const passwordHash = await bcrypt.hash(result.data.password, 12);
 
   // 5. Save the user information with the hashed password in the database
-  const newUser = await createUser(result.data.username, passwordHash);
+  const newUser = await createUser(
+    result.data.username,
+    result.data.email,
+    passwordHash,
+  );
+
+  // create token
+
+  // create session record
+
+  // send the new cookie in headers
+
+  const token = crypto.randomBytes(100).toString('base64');
+
+  // 5. Create the session record
+  const session = await createSession(getUserWithPasswordHash.id, token);
+  // 6. Send the new cookie in the headers
+
+  cookies().set({
+    name: 'sessionToken',
+    value: session.token,
+    ...secureCookieOptions,
+  });
 
   if (!newUser) {
     return NextResponse.json(

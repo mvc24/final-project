@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { RegisterResponseBodyPost } from '../../api/(auth)/signup/route';
+import { RegisterResponseBodyPost } from '../../../api/(auth)/signup/route';
 
 export default function SignupForm() {
   const [username, setUsername] = useState('');
@@ -29,6 +29,7 @@ export default function SignupForm() {
     }
 
     router.push(`/profile/${data.user.username}`);
+    router.refresh();
   }
 
   return (

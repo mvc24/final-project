@@ -2,8 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { LoginResponseBodyPost } from '../../../api/(auth)/login/route';
 import { getSafeReturnToPath } from '../../../util/validation';
-import { LoginResponseBodyPost } from '../../api/(auth)/login/route';
 
 type Props = { returnTo?: string | string[] };
 
@@ -40,6 +40,9 @@ export default function LoginForm(props: Props) {
     router.push(
       getSafeReturnToPath(props.returnTo) || `/profile/${data.user.username}`,
     );
+
+    // revalidate is currently not working, but this would be better
+    router.refresh();
   }
 
   return (

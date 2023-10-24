@@ -1,26 +1,15 @@
-// get info from repo
-
-// getUserWithPasswordHashByUsername
-
-// use toLowerCase() on the username when creating it so it will be case insensitive
-
-// just copy/paste for now, correct problems later
-
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { User } from '../migrations/00000-createTableUsers';
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+};
 
 export type UserWithPasswordHash = User & {
   passwordHash: string;
 };
-
-// (alias) type User = {
-//   id: number;
-//   username: string;
-//   passwordHash: string;
-//   email: string;
-// }
-// import User
 
 export const createUser = cache(
   async (username: string, passwordHash: string, email: string) => {
@@ -66,3 +55,23 @@ export const getUserWithPasswordHashByUsername = cache(
     return user;
   },
 );
+
+export const getUserBySessionToken = cache(async (token: string) => {
+  const [user] = await sql<{ id: number; username: string }[]>`
+    SELECT
+      users.id,
+      users.username
+    FROM
+      users
+    INNER JOIN
+      sessions ON
+      (
+        sessions.token = ${token} AND
+        sessions.user_id = users.id AND
+        sessions.expiry_timestamp > now()
+
+      )
+
+  `;
+  return user;
+});
