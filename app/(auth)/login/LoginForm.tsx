@@ -1,10 +1,13 @@
 'use client';
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { getSafeReturnToPath } from '../../../util/validation';
+import { LoginResponseBodyPost } from '../../api/(auth)/login/route';
 
-// incomplete!!!
+type Props = { returnTo?: string | string[] };
 
-export default function LoginForm() {
+export default function LoginForm(props: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -12,38 +15,53 @@ export default function LoginForm() {
 
   async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const response = await fetch('api/login', {
+
+    const response = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
         username,
         password,
       }),
     });
-    const data = response.json();
-    console.log('Check: ', data);
+
+    const data: LoginResponseBodyPost = await response.json();
+
+    if ('errors' in data) {
+      setErrors(data.errors);
+      return;
+    }
+
+    //  This is not the secured way of doing returnTo
+    // if (props.returnTo) {
+    //   console.log('Checks Return to: ', props.returnTo);
+    //   router.push(props.returnTo);
+    // }
+
+    router.push(
+      getSafeReturnToPath(props.returnTo) || `/profile/${data.user.username}`,
+    );
   }
-  if ('errors' in data) {
-    setErrors(data.errors);
-    return;
-  }
-  router.push(`/profile/${data.user.username}`);
 
   return (
-    <div>
-      <form onSubmit={async (event) => await handleRegister(event)}>
-        <label>
-          username
-          <input onChange={(event) => setUsername(event.currentTarget.value)} />
-        </label>
-        <label>
-          password
-          <input
-            type="password"
-            onChange={(event) => setPassword(event.currentTarget.value)}
-          />
-        </label>
-        <button>log in</button>
-      </form>
-    </div>
+    <form onSubmit={async (event) => await handleRegister(event)}>
+      <label>
+        Username
+        <input onChange={(event) => setUsername(event.currentTarget.value)} />
+      </label>
+      <label>
+        Password
+        <input
+          type="password"
+          onChange={(event) => setPassword(event.currentTarget.value)}
+        />
+      </label>
+      <button>Login</button>
+
+      {errors.map((error) => (
+        <div className="error" key={`error-${error.message}`}>
+          Error: {error.message}
+        </div>
+      ))}
+    </form>
   );
 }
