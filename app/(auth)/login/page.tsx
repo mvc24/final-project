@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getValidSessionsBaToken } from '../../../database/sessions';
-import LoginForm from './LoginForm';
+import LoginForm from './LoginFormAPI';
 
 export default async function LoginPage() {
   // task: add redirect to home if user is logged in

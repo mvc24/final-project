@@ -1,70 +1,74 @@
 'use client';
 
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { LoginResponseBodyPost } from '../../../api/(auth)/login/route';
-import { getSafeReturnToPath } from '../../../util/validation';
 
-type Props = { returnTo?: string | string[] };
+const loginMutation = gql`
+  mutation Login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      id
+      username
+      email
+      password
+    }
+  }
+`;
 
-export default function LoginForm(props: Props) {
+export default function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [onError, setOnError] = useState('');
   const router = useRouter();
 
-  async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [loginHandler] = useMutation(loginMutation, {
+    variables: {
+      username,
+      password,
+    },
 
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    onError: (error) => {
+      setOnError(error.message);
+    },
 
-    const data: LoginResponseBodyPost = await response.json();
-
-    if ('errors' in data) {
-      setErrors(data.errors);
-      return;
-    }
-
-    //  This is not the secured way of doing returnTo
-    // if (props.returnTo) {
-    //   console.log('Checks Return to: ', props.returnTo);
-    //   router.push(props.returnTo);
-    // }
-
-    router.push(
-      getSafeReturnToPath(props.returnTo) || `/profile/${data.user.username}`,
-    );
-
-    // revalidate is currently not working, but this would be better
-    router.refresh();
-  }
+    onCompleted: () => {
+      router.refresh();
+    },
+  });
 
   return (
-    <form onSubmit={async (event) => await handleRegister(event)}>
-      <label>
-        Username
-        <input onChange={(event) => setUsername(event.currentTarget.value)} />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-      </label>
-      <button>Login</button>
-
-      {errors.map((error) => (
-        <div className="error" key={`error-${error.message}`}>
-          Error: {error.message}
-        </div>
-      ))}
-    </form>
+    <div>
+      <h1>Login</h1>
+      <div>
+        <label>
+          username
+          <input
+            value={username}
+            onChange={(event) => {
+              setUsername(event.currentTarget.value);
+            }}
+          />
+        </label>
+        <br />
+        <label>
+          password
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.currentTarget.value);
+            }}
+          />
+        </label>
+        <button
+          onClick={async () => {
+            await loginHandler();
+          }}
+        >
+          Login
+        </button>
+      </div>
+      <div className="error">{onError}</div>
+    </div>
   );
 }

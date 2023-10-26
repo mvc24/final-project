@@ -19,9 +19,9 @@ export type GraphQlResponseBody =
   | Error;
 
 type CreateUser = {
-  username: String!;
-  email: String!;
-  password: String!;
+  username: string;
+  email: string;
+  password: string;
 };
 
 const typeDefs = gql`
@@ -43,7 +43,9 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createUser(username: String!, email: String!, password: String!): CreateUser
+    createUser(username: String!, email: String!, password: String!): User
+
+    login(username: String!, password: String!): User
   }
 `;
 

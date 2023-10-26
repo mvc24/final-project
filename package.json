@@ -17,7 +17,7 @@
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.12.0",
     "@graphql-tools/schema": "^10.0.0",
-    "@next/font": "^13.5.6",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "graphql": "^16.8.1",
@@ -33,6 +33,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
     "@tailwindcss/typography": "^0.5.10",
     "@ts-safeql/eslint-plugin": "^2.0.3",
     "@types/bcrypt": "^5.0.1",
@@ -41,12 +42,13 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.16",
     "daisyui": "^3.9.3",
-    "eslint-config-upleveled": "^5.1.0",
+    "eslint-config-upleveled": "^5.1.1",
     "libpg-query": "^15.0.2",
     "postcss": "^8.4.31",
     "stylelint": "^15.11.0",
     "stylelint-config-upleveled": "^1.0.2",
     "tailwindcss": "^3.3.3",
-    "typescript": "^5"
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
