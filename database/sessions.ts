@@ -8,7 +8,7 @@ export const deleteExpiredSessions = cache(async () => {
       sessions
     WHERE
       expiry_timestamp < now()
-  `;
+    `;
 });
 
 export const createSession = cache(async (userId: number, token: string) => {
@@ -18,17 +18,15 @@ export const createSession = cache(async (userId: number, token: string) => {
       VALUES
         (${userId}, ${token})
       RETURNING
-       id,
-       token,
-       user_id
+        id,
+        token,
+        user_id
     `;
 
   await deleteExpiredSessions();
 
   return session;
 });
-
-// check with repo!
 
 export const deleteSessionByToken = cache(async (token: string) => {
   const [session] = await sql<{ id: number; token: string }[]>`
@@ -44,12 +42,11 @@ export const deleteSessionByToken = cache(async (token: string) => {
   return session;
 });
 
-export const getValidSessionsBaToken = cache(async (token: string) => {
+export const getValidSessionByToken = cache(async (token: string) => {
   const [session] = await sql<{ id: number; token: string }[]>`
     SELECT
       sessions.id,
       sessions.token
-
     FROM
       sessions
     WHERE
@@ -57,5 +54,6 @@ export const getValidSessionsBaToken = cache(async (token: string) => {
     AND
       sessions.expiry_timestamp > now()
   `;
+
   return session;
 });

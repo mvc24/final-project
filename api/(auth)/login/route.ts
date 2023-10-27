@@ -68,32 +68,41 @@ export async function POST(
       },
     );
   }
+
+  // At this stage we already confirm that the user is who they say they are
+
   //  Coming in subsequent lecture
   // 4. Create a token
   const token = crypto.randomBytes(100).toString('base64');
 
   // 5. Create the session record
   const session = await createSession(userWithPasswordHash.id, token);
-  // 6. Send the new cookie in the headers
 
   if (!session) {
     return NextResponse.json(
       { errors: [{ message: 'Error creating the new session' }] },
       {
-        status: 500,
+        status: 401,
       },
     );
   }
+
+  // 6. Send the new cookie in the headers
+
+  // cookies().set({
+  //   name: 'sessionToken',
+  //   value: session.token,
+  //   httpOnly: true,
+  //   path: '/',
+  //   secure: process.env.NODE_ENV === 'production',
+  //   maxAge: 60 * 60 * 48, // Expires in 24 hours,
+  //   sameSite: 'lax', // this prevents CSRF attacks
+  // });
 
   cookies().set({
     name: 'sessionToken',
     value: session.token,
     ...secureCookieOptions,
-    // httpOnly: true,
-    // path: '/',
-    // secure: process.env.NODE_ExNV === 'production',
-    // maxAge: 60 * 60 * 24, // expires in 24 hours
-    // sameSite: 'lax', // this prevents CSRF attacks
   });
 
   // 6. Return the new user information without the password hash

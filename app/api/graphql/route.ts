@@ -2,13 +2,22 @@ import { gql } from '@apollo/client';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
+import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
+import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { use } from 'react';
+import { z } from 'zod';
+import {
+  createSession,
+  getValidSessionByToken,
+} from '../../../database/sessions';
 import {
   createUser,
+  getUserBySessionToken,
+  getUserByUsername,
   getUsers,
-  getUserWithPasswordHashByUsername,
   User,
 } from '../../../database/users';
 
@@ -27,25 +36,33 @@ type CreateUser = {
 const typeDefs = gql`
   type User {
     id: ID!
-    username: string!
-    email: string!
+    username: String!
+    email: String!
+    passwordHash: String!
   }
 
-  type UserWithPasswordHash {
-    id: ID!
-    username: string!
-    email: string!
-    passwordHash: string!
+  type LogInResponse {
+    user: User!
   }
 
+  type SignUpResponse {
+    token: String
+    error: String
+  }
   type Query {
     users: [User]
+    user(username: String!): User
   }
-
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
-
     login(username: String!, password: String!): User
+
+    # register($username: String!, $email: String!, $password: String!) {
+    #   signUp(username: $username, email: $email, password: $password): SignUpResponse
+    # }
+
+    # login ($username: String!, $password: String!){
+    # signIn(username: String!, password: String!): SignInResponse}
   }
 `;
 
@@ -54,8 +71,8 @@ const resolvers = {
     users: async () => {
       return await getUsers();
     },
-    user: async (parent: null, args: { id: string }) => {
-      return await getUserWithPasswordHashByUsername(args.id); // parseInt returns a typescript error can't assign number to type string
+    user: async (parent: null, args: { username: string }) => {
+      return (await getUserByUsername(args.username)) as User; // parseInt returns a typescript error can't assign number to type string
     },
   },
   Mutation: {
@@ -67,7 +84,52 @@ const resolvers = {
       ) {
         throw new GraphQLError('Required field is missing');
       }
-      return await createUser(args.username, args.email, args.password);
+      const hashedPassword = await bcrypt.hash(args.password, 10);
+
+      return await createUser(args.username, args.email, hashedPassword);
+    },
+
+    login: async (
+      parent: null,
+      args: { username: string; password: string; id: number },
+    ) => {
+      if (
+        typeof args.username !== 'string' ||
+        typeof args.password !== 'string' ||
+        !args.username ||
+        !args.password
+      ) {
+        throw new GraphQLError('Required field is missing!');
+      }
+
+      const user = await getUserByUsername(args.username);
+      if (!user) {
+        throw new GraphQLError('No user found.');
+      }
+
+      const isValid: boolean = await bcrypt.compare(
+        args.password,
+        user.passwordHash,
+      );
+
+      if (isValid) {
+        const payload = {
+          userId: user.id,
+          username: user.username,
+          email: user.email,
+        };
+        const options = {
+          expiresIn: '24h',
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+
+        cookies().set({
+          name: 'sessionToken',
+          value: token,
+        });
+
+        return user;
+      }
     },
   },
 };
@@ -79,7 +141,19 @@ const schema = makeExecutableSchema({
 
 const apolloServer = new ApolloServer({ schema });
 
-const handler = startServerAndCreateNextHandler(apolloServer);
+const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
+  context: async (req) => {
+    // FIXME: Implement secure authentication and Authorization
+    const sessionTokenCookie = cookies().get('sessionToken');
+    const session =
+      sessionTokenCookie &&
+      (await getValidSessionByToken(sessionTokenCookie.value));
+
+    return {
+      req,
+    };
+  },
+});
 
 export async function GET(
   req: NextRequest,
