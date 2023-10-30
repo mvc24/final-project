@@ -3,16 +3,11 @@ import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
+import { log } from 'console';
 import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { use } from 'react';
-import { z } from 'zod';
-import {
-  createSession,
-  getValidSessionByToken,
-} from '../../../database/sessions';
 import {
   createUser,
   getUserBySessionToken,
@@ -41,7 +36,7 @@ const typeDefs = gql`
     passwordHash: String!
   }
 
-  type LogInResponse {
+  type LoggedInUser {
     user: User!
   }
 
@@ -52,17 +47,12 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
+    # loggedInUser(username: String!): User
   }
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
+
     login(username: String!, password: String!): User
-
-    # register($username: String!, $email: String!, $password: String!) {
-    #   signUp(username: $username, email: $email, password: $password): SignUpResponse
-    # }
-
-    # login ($username: String!, $password: String!){
-    # signIn(username: String!, password: String!): SignInResponse}
   }
 `;
 
@@ -74,6 +64,9 @@ const resolvers = {
     user: async (parent: null, args: { username: string }) => {
       return (await getUserByUsername(args.username)) as User; // parseInt returns a typescript error can't assign number to type string
     },
+    loggedInUser: async (parent: null, args: { token: string }) => {
+      return (await getUserBySessionToken(args.token)) as User;
+    },
   },
   Mutation: {
     createUser: async (parent: null, args: CreateUser) => {
@@ -83,15 +76,16 @@ const resolvers = {
         typeof args.password !== 'string'
       ) {
         throw new GraphQLError('Required field is missing');
-      }
-      const hashedPassword = await bcrypt.hash(args.password, 10);
+      } else {
+        const hashedPassword = await bcrypt.hash(args.password, 10);
 
-      return await createUser(args.username, args.email, hashedPassword);
+        return await createUser(args.username, args.email, hashedPassword);
+      }
     },
 
     login: async (
       parent: null,
-      args: { username: string; password: string; id: number },
+      args: { username: string; password: string },
     ) => {
       if (
         typeof args.username !== 'string' ||
@@ -100,23 +94,24 @@ const resolvers = {
         !args.password
       ) {
         throw new GraphQLError('Required field is missing!');
+      } else {
       }
 
-      const user = await getUserByUsername(args.username);
-      if (!user) {
+      const loggedInUser = await getUserByUsername(args.username);
+      if (!loggedInUser) {
         throw new GraphQLError('No user found.');
       }
 
       const isValid: boolean = await bcrypt.compare(
         args.password,
-        user.passwordHash,
+        loggedInUser.passwordHash,
       );
 
       if (isValid) {
         const payload = {
-          userId: user.id,
-          username: user.username,
-          email: user.email,
+          userId: loggedInUser.id,
+          username: loggedInUser.username,
+          email: loggedInUser.email,
         };
         const options = {
           expiresIn: '24h',
@@ -128,7 +123,9 @@ const resolvers = {
           value: token,
         });
 
-        return user;
+        return loggedInUser;
+      } else {
+        throw new GraphQLError('Password or username is incorrect.');
       }
     },
   },
@@ -144,10 +141,6 @@ const apolloServer = new ApolloServer({ schema });
 const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
   context: async (req) => {
     // FIXME: Implement secure authentication and Authorization
-    const sessionTokenCookie = cookies().get('sessionToken');
-    const session =
-      sessionTokenCookie &&
-      (await getValidSessionByToken(sessionTokenCookie.value));
 
     return {
       req,

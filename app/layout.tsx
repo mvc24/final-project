@@ -1,13 +1,15 @@
 import './globals.css';
+import { gql } from '@apollo/client';
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactNode } from 'react';
 import { getUserBySessionToken } from '../database/users';
 import sageLogo from '../public/images/sageLogo.svg';
+import { getClient } from '../util/apolloClient';
 import LogoutButton from './(auth)/logout/LogoutButton';
+import { ApolloClientProvider } from './ApolloClientProvider';
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -16,15 +18,34 @@ export const metadata: Metadata = {
   description: 'inspiration for creative cooking',
 };
 
-type Props = {
-  children: ReactNode;
-};
+// type Props = {
+//   children: ReactNode;
+// };
 
-export default async function RootLayout(props: Props) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // display username in the navigation and login & register buttons depending on user status
-
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
+
+  const { data } = await getClient().query({
+    query: gql`
+      query LoggedInUser($username: String!) {
+        loggedInUser(username: $username) {
+          id
+          username
+          email
+          passwordHash
+        }
+      }
+    `,
+    variables: {
+      username: sessionToken?.value || '',
+    },
+  });
 
   const user = !sessionToken?.value
     ? undefined
@@ -38,7 +59,9 @@ export default async function RootLayout(props: Props) {
         <header className="bg-neutral-100">
           <nav className="navbar bg-neutral-100 text-main-700">
             <div className="navbar-start">
-              <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
+              <Link href="/">
+                <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
+              </Link>
               <div className="dropdown">
                 <div className="btn btn-ghost lg:hidden">
                   <svg
@@ -113,31 +136,25 @@ export default async function RootLayout(props: Props) {
               </ul>
             </div>
             <div className="navbar-end gap-4">
-              {user ? (
-                <>
-                  <div>{user.username}</div>
-                  <LogoutButton />
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/login"
-                    className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
-                  >
-                    login
-                  </Link>
-                  <Link
-                    className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-main-200 lowercase text-lg"
-                    href="/signup"
-                  >
-                    sign up
-                  </Link>
-                </>
-              )}
+              {data} ? (<div>{user?.username}</div>
+              <LogoutButton />) : (
+              <Link
+                href="/login"
+                className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
+              >
+                login
+              </Link>
+              <Link
+                className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-main-200 lowercase text-lg"
+                href="/signup"
+              >
+                sign up
+              </Link>
+              )
             </div>
           </nav>
         </header>
-        {props.children}
+        <ApolloClientProvider>{children}</ApolloClientProvider>
         <footer className="footer items-center p-4 bg-neutral-100 text-m text-main-700">
           <aside className="items-center grid-flow-col">
             <p>Copyright © 2023 - All right reserved</p>

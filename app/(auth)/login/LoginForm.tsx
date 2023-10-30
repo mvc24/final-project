@@ -10,7 +10,7 @@ const loginMutation = gql`
       id
       username
       email
-      password
+      passwordHash
     }
   }
 `;
@@ -37,38 +37,40 @@ export default function LoginForm() {
   });
 
   return (
-    <div>
-      <h1>Login</h1>
-      <div>
-        <label>
-          username
-          <input
-            value={username}
-            onChange={(event) => {
-              setUsername(event.currentTarget.value);
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+      <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+        <h1>Login</h1>
+        <div>
+          <label>
+            username
+            <input
+              value={username}
+              onChange={(event) => {
+                setUsername(event.currentTarget.value);
+              }}
+            />
+          </label>
+          <br />
+          <label>
+            password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.currentTarget.value);
+              }}
+            />
+          </label>
+          <button
+            onClick={async () => {
+              await loginHandler();
             }}
-          />
-        </label>
-        <br />
-        <label>
-          password
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => {
-              setPassword(event.currentTarget.value);
-            }}
-          />
-        </label>
-        <button
-          onClick={async () => {
-            await loginHandler();
-          }}
-        >
-          Login
-        </button>
+          >
+            Login
+          </button>
+        </div>
+        <div className="error">{onError}</div>
       </div>
-      <div className="error">{onError}</div>
     </div>
   );
 }
