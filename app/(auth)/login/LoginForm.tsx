@@ -9,8 +9,6 @@ const loginMutation = gql`
     login(username: $username, password: $password) {
       id
       username
-      email
-      passwordHash
     }
   }
 `;
@@ -35,6 +33,8 @@ export default function LoginForm() {
       router.refresh();
     },
   });
+
+  console.log('Login Form: ', username, password);
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">

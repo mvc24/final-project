@@ -3,11 +3,11 @@ import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
-import { log } from 'console';
 import { GraphQLError } from 'graphql';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { createSession } from '../../../database/sessions';
 import {
   createUser,
   getUserBySessionToken,
@@ -37,7 +37,8 @@ const typeDefs = gql`
   }
 
   type LoggedInUser {
-    user: User!
+    id: ID!
+    username: String!
   }
 
   type SignUpResponse {
@@ -47,7 +48,7 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    # loggedInUser(username: String!): User
+    loggedInUser(token: String!): LoggedInUser
   }
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
@@ -62,10 +63,10 @@ const resolvers = {
       return await getUsers();
     },
     user: async (parent: null, args: { username: string }) => {
-      return (await getUserByUsername(args.username)) as User; // parseInt returns a typescript error can't assign number to type string
+      return await getUserByUsername(args.username); // parseInt returns a typescript error can't assign number to type string
     },
     loggedInUser: async (parent: null, args: { token: string }) => {
-      return (await getUserBySessionToken(args.token)) as User;
+      return await getUserBySessionToken(args.token);
     },
   },
   Mutation: {
@@ -87,6 +88,7 @@ const resolvers = {
       parent: null,
       args: { username: string; password: string },
     ) => {
+      console.log('login endpoint from router: ', args.username, args.password);
       if (
         typeof args.username !== 'string' ||
         typeof args.password !== 'string' ||
@@ -97,33 +99,40 @@ const resolvers = {
       } else {
       }
 
-      const loggedInUser = await getUserByUsername(args.username);
-      if (!loggedInUser) {
+      const user = await getUserByUsername(args.username);
+      if (!user) {
         throw new GraphQLError('No user found.');
       }
 
       const isValid: boolean = await bcrypt.compare(
         args.password,
-        loggedInUser.passwordHash,
+        user.passwordHash,
       );
 
       if (isValid) {
         const payload = {
-          userId: loggedInUser.id,
-          username: loggedInUser.username,
-          email: loggedInUser.email,
+          userId: user.id,
+          username: user.username,
+          email: user.email,
         };
         const options = {
           expiresIn: '24h',
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+        console.log('token: ', token);
+
+        const session = await createSession(user.id, token);
+
+        if (!session) {
+          throw new GraphQLError('No session created.');
+        }
 
         cookies().set({
           name: 'sessionToken',
-          value: token,
+          value: session.token,
         });
 
-        return loggedInUser;
+        return getUserBySessionToken(session.token);
       } else {
         throw new GraphQLError('Password or username is incorrect.');
       }

@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getValidSessionsBaToken } from '../../../database/sessions';
+import { getValidSessionsByToken } from '../../../database/sessions';
 import SignupForm from './SignupForm';
 
 export default async function SignupPage() {
@@ -14,7 +14,7 @@ export default async function SignupPage() {
 
   const session =
     sessionTokenCookie &&
-    (await getValidSessionsBaToken(sessionTokenCookie.value));
+    (await getValidSessionsByToken(sessionTokenCookie.value));
 
   if (session) redirect('/');
 

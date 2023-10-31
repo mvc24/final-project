@@ -33,23 +33,22 @@ export default async function RootLayout({
 
   const { data } = await getClient().query({
     query: gql`
-      query LoggedInUser($username: String!) {
-        loggedInUser(username: $username) {
+      query LoggedInUser($token: String!) {
+        loggedInUser(token: $token) {
           id
           username
-          email
-          passwordHash
         }
       }
     `,
     variables: {
-      username: sessionToken?.value || '',
+      token: sessionToken?.value || '',
     },
   });
+  console.log('data: ', data);
 
-  const user = !sessionToken?.value
-    ? undefined
-    : await getUserBySessionToken(sessionToken.value);
+  // const user = !sessionToken?.value
+  //   ? undefined
+  //   : await getUserBySessionToken(sessionToken.value);
 
   // get logged in user, check repo
 
@@ -136,21 +135,26 @@ export default async function RootLayout({
               </ul>
             </div>
             <div className="navbar-end gap-4">
-              {data} ? (<div>{user?.username}</div>
-              <LogoutButton />) : (
-              <Link
-                href="/login"
-                className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
-              >
-                login
-              </Link>
-              <Link
-                className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-main-200 lowercase text-lg"
-                href="/signup"
-              >
-                sign up
-              </Link>
-              )
+              {data.loggedInUser ? (
+                <div>
+                  {data.loggedInUser?.username} <LogoutButton />
+                </div>
+              ) : (
+                <div>
+                  <Link
+                    href="/login"
+                    className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
+                  >
+                    login
+                  </Link>
+                  <Link
+                    className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-main-200 lowercase text-lg"
+                    href="/signup"
+                  >
+                    sign up
+                  </Link>
+                </div>
+              )}
             </div>
           </nav>
         </header>
