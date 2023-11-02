@@ -25,6 +25,7 @@ export default function SignUpForm() {
     variables: {
       username,
       email,
+      password,
     },
 
     onError: (error) => {
@@ -36,7 +37,7 @@ export default function SignUpForm() {
     },
   });
 
-  console.log('SignUp Form: ', username, password, email);
+  console.log('SignUp mutation: ', signUpMutation);
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
@@ -77,7 +78,7 @@ export default function SignUpForm() {
               await signUpHandler();
             }}
           >
-            Login
+            Sign up
           </button>
         </div>
         <div className="error">{onError}</div>

@@ -143,7 +143,7 @@ export default async function RootLayout({
                   <LogoutButton />
                 </div>
               ) : (
-                <div>
+                <div className="inline-flex gap-4">
                   <Link
                     href="/login"
                     className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"

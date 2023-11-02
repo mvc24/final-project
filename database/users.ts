@@ -68,10 +68,14 @@ export const getUserWithPasswordHashByUsername = cache(
 );
 
 export const getUserBySessionToken = cache(async (token: string) => {
-  const [user] = await sql<{ id: number; username: string }[]>`
+  const [user] = await sql<
+    { id: number; username: string; email: string; passwordHash: string }[]
+  >`
     SELECT
       users.id,
-      users.username
+      users.username,
+      users.email,
+      users.password_hash
     FROM
       users
       INNER JOIN sessions ON (
