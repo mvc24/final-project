@@ -28,6 +28,10 @@ type CreateUser = {
   password: string;
 };
 
+type LogInContext = {
+  isLoggedIn: boolean;
+};
+
 const typeDefs = gql`
   type User {
     id: ID!
@@ -41,10 +45,6 @@ const typeDefs = gql`
     username: String!
   }
 
-  type SignUpResponse {
-    token: String
-    error: String
-  }
   type Query {
     users: [User]
     user(username: String!): User
@@ -52,8 +52,7 @@ const typeDefs = gql`
   }
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
-
-    login(username: String!, password: String!): User
+    login(username: String!, password: String!): LoggedInUser
   }
 `;
 
@@ -71,16 +70,62 @@ const resolvers = {
   },
   Mutation: {
     createUser: async (parent: null, args: CreateUser) => {
+      const user = await getUserByUsername(args.username);
+
       if (
         typeof args.username !== 'string' ||
         typeof args.email !== 'string' ||
         typeof args.password !== 'string'
       ) {
         throw new GraphQLError('Required field is missing');
+      } else if (user) {
+        throw new GraphQLError(
+          'Username already exists, please choose another one.',
+        );
       } else {
         const hashedPassword = await bcrypt.hash(args.password, 10);
 
-        return await createUser(args.username, args.email, hashedPassword);
+        const newUser = await createUser(
+          args.username,
+          args.email,
+          hashedPassword,
+        );
+
+        if (!newUser) {
+          throw new GraphQLError('No user was created.');
+        }
+        // const isValid: boolean = await bcrypt.compare(
+        //   args.password,
+        //   newUser.passwordHash,
+        // );
+
+        console.log('create user: ', newUser);
+
+        const payload = {
+          userId: newUser.id,
+          username: newUser.username,
+          email: newUser.email,
+        };
+        const options = {
+          expiresIn: '24h',
+        };
+        const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+        console.log('token: ', token);
+
+        const session = await createSession(newUser.id, token);
+
+        if (!session) {
+          throw new GraphQLError('No session created.');
+        }
+
+        cookies().set({
+          name: 'sessionToken',
+          value: session.token,
+        });
+
+        console.log('session token in sign up: ', session.token);
+
+        return await getUserBySessionToken(session.token);
       }
     },
 
@@ -132,6 +177,8 @@ const resolvers = {
           value: session.token,
         });
 
+        console.log('session token in login: ', session.token);
+
         return getUserBySessionToken(session.token);
       } else {
         throw new GraphQLError('Password or username is incorrect.');
@@ -151,7 +198,30 @@ const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
   context: async (req) => {
     // FIXME: Implement secure authentication and Authorization
 
+    const sessionTokenCookie = req.cookies.get('sessionToken');
+
+    console.log('req.cookies: ', req.cookies.get('sessionToken'));
+
+    // const sessionTokenCookie = cookies().get('sessionToken');
+
+    console.log('sessionTokenCookie in handler', sessionTokenCookie);
+
+    const session =
+      sessionTokenCookie &&
+      (await getUserBySessionToken(sessionTokenCookie.value));
+
+    console.log('check if the session is valid: ', session);
+
+    // const isAdmin = await isUserAdminBySessionToken(fakeSessionToken?.value);
+
+    //  const sessionCookie = cookies().get('sessionToken');
+
+    // console.log('Session cookie: ', sessionCookie);
+
+    // const loggedInUser = getUserBySessionToken('sessionToken');
+
     return {
+      session,
       req,
     };
   },

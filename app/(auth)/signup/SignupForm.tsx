@@ -1,66 +1,87 @@
 'use client';
-
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { RegisterResponseBodyPost } from '../../../api/(auth)/signup/route';
+import React, { useState } from 'react';
 
-export default function SignupForm() {
+const signUpMutation = gql`
+  mutation CreateUser($username: String!, $email: String!, $password: String!) {
+    createUser(username: $username, email: $email, password: $password) {
+      id
+      username
+      email
+      passwordHash
+    }
+  }
+`;
+
+export default function SignUpForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [onError, setOnError] = useState('');
   const router = useRouter();
 
-  async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [signUpHandler] = useMutation(signUpMutation, {
+    variables: {
+      username,
+      email,
+    },
 
-    const response = await fetch('/api/signup', {
-      method: 'POST',
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-      }),
-    });
+    onError: (error) => {
+      setOnError(error.message);
+    },
 
-    const data: RegisterResponseBodyPost = await response.json();
+    onCompleted: () => {
+      router.refresh();
+    },
+  });
 
-    if ('errors' in data) {
-      setErrors(data.errors);
-      return;
-    }
-
-    router.push(`/profile/${data.user.username}`);
-    router.refresh();
-  }
+  console.log('SignUp Form: ', username, password, email);
 
   return (
-    <form onSubmit={async (event) => await handleRegister(event)}>
-      <label>
-        Username
-        <input onChange={(event) => setUsername(event.currentTarget.value)} />
-      </label>
-      <label>
-        email
-        <input
-          type="email"
-          onChange={(event) => setEmail(event.currentTarget.value)}
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-      </label>
-      <button>Register</button>
-
-      {errors.map((error) => (
-        <div className="error" key={`error-${error.message}`}>
-          Error: {error.message}
+    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+      <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+        <h1>Login</h1>
+        <div>
+          <label>
+            username
+            <input
+              className="form-input"
+              value={username}
+              onChange={(event) => {
+                setUsername(event.currentTarget.value);
+              }}
+            />
+          </label>
+          <br />
+          <label>
+            email
+            <input
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.currentTarget.value)}
+            />
+          </label>
+          <label>
+            password
+            <input
+              type="password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.currentTarget.value);
+              }}
+            />
+          </label>
+          <button
+            onClick={async () => {
+              await signUpHandler();
+            }}
+          >
+            Login
+          </button>
         </div>
-      ))}
-    </form>
+        <div className="error">{onError}</div>
+      </div>
+    </div>
   );
 }

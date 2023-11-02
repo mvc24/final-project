@@ -2,7 +2,7 @@
 
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const loginMutation = gql`
   mutation Login($username: String!, $password: String!) {
@@ -33,8 +33,6 @@ export default function LoginForm() {
       router.refresh();
     },
   });
-
-  console.log('Login Form: ', username, password);
 
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">

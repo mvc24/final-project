@@ -5,7 +5,7 @@ import { Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getUserBySessionToken } from '../database/users';
+import React from 'react';
 import sageLogo from '../public/images/sageLogo.svg';
 import { getClient } from '../util/apolloClient';
 import LogoutButton from './(auth)/logout/LogoutButton';
@@ -136,8 +136,11 @@ export default async function RootLayout({
             </div>
             <div className="navbar-end gap-4">
               {data.loggedInUser ? (
-                <div>
-                  {data.loggedInUser?.username} <LogoutButton />
+                <div className="inline-flex gap-4">
+                  <span className="btn px-5 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg">
+                    {data.loggedInUser?.username}
+                  </span>
+                  <LogoutButton />
                 </div>
               ) : (
                 <div>
