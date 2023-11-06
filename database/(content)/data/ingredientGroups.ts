@@ -4,9 +4,9 @@ export type Group = {
   seasons: number[];
   categories: number[];
   howtos: number[];
-}[];
+};
 
-export const groups: Group = [
+export const groups: Group[] = [
   {
     id: 1,
     ingredients: [2, 62, 134, 51],
@@ -30,7 +30,7 @@ export const groups: Group = [
   },
   {
     id: 4,
-    ingredients: [4, 48, 0],
+    ingredients: [4, 48, 142],
     seasons: [5],
     categories: [1],
     howtos: [1, 9, 10],
