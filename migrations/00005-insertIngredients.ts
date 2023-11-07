@@ -1,5 +1,5 @@
 import { Sql } from 'postgres';
-import { ingredients } from '../database/(content)/data/ingredients';
+import { ingredients } from '../app/data/ingredientsData';
 
 export async function up(sql: Sql) {
   for (const ingredient of ingredients) {
@@ -25,7 +25,7 @@ export async function up(sql: Sql) {
 export async function down(sql: Sql) {
   for (const ingredient of ingredients) {
     await sql`
-      DELETE FROM how_to
+      DELETE FROM ingredients
       WHERE
         id = ${ingredient.id}
     `;

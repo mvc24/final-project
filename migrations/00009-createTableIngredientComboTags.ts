@@ -1,20 +1,16 @@
 import { Sql } from 'postgres';
 
-export type Season = {
-  id: number;
-  name: string;
-};
-
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE
-      seasons (
+      ingredient_combo_tags (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        name VARCHAR(200) NOT NULL
+        combo_id INTEGER NOT NULL REFERENCES combos (id),
+        tag_id INTEGER NOT NULL REFERENCES tags (id)
       )
   `;
 }
 
 export async function down(sql: Sql) {
-  await sql` DROP TABLE seasons `;
+  await sql` DROP TABLE ingredient_combo_tags `;
 }

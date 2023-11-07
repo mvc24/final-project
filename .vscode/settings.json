@@ -2,7 +2,7 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "cSpell.words": ["howto", "howtos"],
+  "cSpell.words": ["cavolo", "choy", "fraiche", "howto", "howtos"],
   "terminal.integrated.accessibleViewPreserveCursorPosition": false,
   "terminal.integrated.persistentSessionReviveProcess": "onExit"
 }

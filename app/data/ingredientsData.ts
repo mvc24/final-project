@@ -1,4 +1,4 @@
-import { Ingredient } from '../../../migrations/00004-createTableIngredients';
+import { Ingredient } from '../../migrations/00003-createTableIngredients';
 
 export const ingredients: Ingredient[] = [
   {
