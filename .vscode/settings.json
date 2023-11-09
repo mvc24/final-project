@@ -2,7 +2,18 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "cSpell.words": ["cavolo", "choy", "fraiche", "howto", "howtos"],
+  "cSpell.words": [
+    "Caponata",
+    "cavolo",
+    "choy",
+    "colours",
+    "favourites",
+    "fraiche",
+    "ghanoush",
+    "harissa",
+    "howto",
+    "howtos"
+  ],
   "terminal.integrated.accessibleViewPreserveCursorPosition": false,
   "terminal.integrated.persistentSessionReviveProcess": "onExit"
 }

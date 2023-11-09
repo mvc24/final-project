@@ -3,6 +3,7 @@ import { Cloudinary } from '@cloudinary/url-gen';
 
 export default function Home() {
   const cld = new Cloudinary({ cloud: { cloudName: 'dnzitfasn' } });
+
   return (
     <div
       className="hero min-h-screen max-h-fit"

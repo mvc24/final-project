@@ -40,6 +40,14 @@ const typeDefs = gql`
     passwordHash: String!
   }
 
+  type Ingredient {
+    id: ID!
+    name: String!
+    image: String
+    description: String
+    recipe: String
+  }
+
   type LoggedInUser {
     id: ID!
     username: String!
@@ -133,7 +141,7 @@ const resolvers = {
       parent: null,
       args: { username: string; password: string },
     ) => {
-      console.log('login endpoint from router: ', args.username, args.password);
+      // console.log('login endpoint from router: ', args.username, args.password);
       if (
         typeof args.username !== 'string' ||
         typeof args.password !== 'string' ||
@@ -196,29 +204,19 @@ const apolloServer = new ApolloServer({ schema });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
   context: async (req) => {
-    // FIXME: Implement secure authentication and Authorization
-
     const sessionTokenCookie = req.cookies.get('sessionToken');
 
-    console.log('req.cookies: ', req.cookies.get('sessionToken'));
+    // console.log('req.cookies: ', req.cookies.get('sessionToken'));
 
-    // const sessionTokenCookie = cookies().get('sessionToken');
-
-    console.log('sessionTokenCookie in handler', sessionTokenCookie);
+    // console.log('sessionTokenCookie in handler', sessionTokenCookie);
 
     const session =
       sessionTokenCookie &&
       (await getUserBySessionToken(sessionTokenCookie.value));
 
-    console.log('check if the session is valid: ', session);
-
-    // const isAdmin = await isUserAdminBySessionToken(fakeSessionToken?.value);
-
-    //  const sessionCookie = cookies().get('sessionToken');
+    // console.log('check if the session is valid: ', session);
 
     // console.log('Session cookie: ', sessionCookie);
-
-    // const loggedInUser = getUserBySessionToken('sessionToken');
 
     return {
       session,

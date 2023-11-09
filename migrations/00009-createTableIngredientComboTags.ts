@@ -5,8 +5,8 @@ export async function up(sql: Sql) {
     CREATE TABLE
       ingredient_combo_tags (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        combo_id INTEGER NOT NULL REFERENCES combos (id),
-        tag_id INTEGER NOT NULL REFERENCES tags (id)
+        combo_id INTEGER NOT NULL REFERENCES combos (id) ON DELETE CASCADE,
+        tag_id INTEGER NOT NULL REFERENCES tags (id) ON DELETE CASCADE
       )
   `;
 }
