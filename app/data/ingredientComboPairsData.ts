@@ -1,9 +1,13 @@
 export type IngredientComboPair = {
-  comboId: number;
-  ingredientId: number;
+  comboId: number | null;
+  ingredientId: number | null;
 };
 
-export type IngredientComboPairWithId = IngredientComboPair & { id: number };
+export type IngredientComboPairWithId = {
+  id: number;
+  comboId: number | null;
+  ingredientId: number | null;
+};
 
 export const ingredientComboPairs: IngredientComboPair[] = [
   { comboId: 1, ingredientId: 2 },

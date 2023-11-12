@@ -78,7 +78,7 @@ export default async function RootLayout({
                     />
                   </svg>
                 </div>
-                <ul className="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-100 rounded-box w-52">
+                <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                   <li>
                     <Link
                       className="transition hover:text-decoration-700"
@@ -110,7 +110,7 @@ export default async function RootLayout({
               <ul className="menu menu-horizontal px-1 text-lg">
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/ingredients"
                   >
                     the ingredients
@@ -118,7 +118,7 @@ export default async function RootLayout({
                 </li>
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/howTo"
                   >
                     how to use this page
@@ -126,7 +126,7 @@ export default async function RootLayout({
                 </li>
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/about"
                   >
                     about

@@ -24,3 +24,15 @@ export const getIngredientByID = cache(async (id: number) => {
   `;
   return ingredient;
 });
+
+export const getMainIngredients = cache(async () => {
+  const mainIngredients = await sql<Ingredient[]>`
+    SELECT
+      *
+    FROM
+      ingredients
+    WHERE
+      id < 10
+  `;
+  return mainIngredients;
+});

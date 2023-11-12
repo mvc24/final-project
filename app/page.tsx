@@ -1,15 +1,12 @@
 import './globals.css';
-import { Cloudinary } from '@cloudinary/url-gen';
 
 export default function Home() {
-  const cld = new Cloudinary({ cloud: { cloudName: 'dnzitfasn' } });
-
   return (
     <div
       className="hero min-h-screen max-h-fit"
       style={{
         backgroundImage:
-          'url(https://res.cloudinary.com/dnzitfasn/image/upload/v1697885185/cover-eggplant.jpg)',
+          'url(https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/cover-eggplant)',
       }}
     >
       <div className="hero-overlay bg-opacity-30" />

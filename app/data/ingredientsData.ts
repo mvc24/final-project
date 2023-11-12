@@ -4,8 +4,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 1,
     name: 'aubergine',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/aubergine_ftvmtg',
+    image: 'sage/aubergine_ftvmtg',
     description: `Aubergines or eggplants come in a lot of different sizes, shapes, and colours and can just about take on any flavour from all over the world.
     Those who do not like them have often made the acquaintance of undercooked ones, which is the one thing you should never do to it – better too dark than too light, trust me on that.
     They’re happy to be roasted in the oven, they can be halved and the flesh scored, cut into bite-size cubes, or thick slices. Mix them with olive oil, salt, and whichever spices you like. You might also want to add a bit of liquid at the beginning to help the flesh soften and become creamy.
@@ -16,8 +15,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 2,
     name: 'beans',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/beans_gbaxci',
+    image: 'sage/beans_gbaxci',
     description: `Beans come in a variety of shapes, colours, and sizes, and they are a versatile ingredient that can be used in various cuisines.
 
     While cooking beans from scratch isn’t at all difficult, I rarely have the forethought to soak them the day before, so I generally use them from a can. My favourites are white butter beans, they are creamy and lend themselves perfectly for making quick and comforting food.
@@ -32,7 +30,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 3,
     name: 'chickpeas',
-    image: '3',
+    image: 'sage/beans_gbaxci',
     description: `Chickpeas, also known as garbanzo beans, are versatile legumes that can be enjoyed in a variety of dishes. They have a creamy texture and a nutty flavour that adds depth to any recipe.
 
     Whether you prefer to use canned or cooked chickpeas, they are a great source of protein and can be a fantastic addition to vegetarian and vegan meals. You can toss them in salads, roast them for a crunchy snack, or blend them into creamy hummus.
@@ -45,7 +43,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 4,
     name: 'fennel',
-    image: '4',
+    image: 'sage/fennel_eclibx',
     description: `Fennel is surprisingly adaptable and aromatic vegetable that adds a unique flavour to a variety of dishes. It has a crunchy texture and a slightly sweet and anise-like taste.
 
     There are different ways to prepare fennel depending on your preference. It can be thinly sliced and enjoyed raw in salads for a refreshing and crisp bite. You can also roast or grill fennel to bring out its natural sweetness and enhance its flavour.
@@ -56,7 +54,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 5,
     name: 'kale & cavolo nero',
-    image: '5',
+    image: 'sage/fennel_eclibx',
     description: `Kale and cavolo nero are leafy greens belonging to the cabbage family that offer a wealth of flavours and textures to elevate your dishes.
 
     Kale, with its curly leaves and vibrant green color, has a slightly bitter taste that mellows when cooked. It can be enjoyed raw in salads, but then it might be a good idea to cut it into thin strips and massaging it with a bit of salt to make it soft and way more enjoyable. When cooked, kale becomes tender and develops a rich flavour that pairs well with garlic, lemon, and anchovies or parmesan (or both).
@@ -73,8 +71,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 6,
     name: 'mushrooms',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/mushrooms_nvgtzh',
+    image: 'sage/mushrooms_nvgtzh',
     description: `Although there are a great variety of different mushrooms that offer a wide range of flavours and textures in cooking, I decided to group them all together here. They come in various shapes, sizes, and colours, each with its own unique characteristics.
 
     Whether you prefer common button mushrooms, meaty portobellos, or delicate oyster mushrooms, there are countless ways to enjoy them in your meals. Mushrooms can be sautéed, grilled, roasted, or even stuffed with flavourful fillings.
@@ -87,8 +84,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 7,
     name: 'pumpkin',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/pumpkin_wr3vau',
+    image: 'sage/pumpkin_wr3vau',
     description: `Pumpkin and winter squash are vibrant and flavourful vegetables that add a delightful touch to a variety of dishes. With their distinct shapes, sizes, and colors, they bring a touch of warmth and richness to the table.
 
     Pumpkins are often associated with fall and are popular for making comforting dishes like pumpkin pie and roasted pumpkin soup. Their sweet and earthy flavour makes them a versatile ingredient in both sweet and savoury recipes. Pumpkin can be pureed for creamy sauces, diced for hearty stews, or roasted for a caramelised finish.
@@ -105,8 +101,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 8,
     name: 'tomatoes',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/tomato_cesgxx',
+    image: 'sage/tomato_cesgxx',
     description: `Tomatoes are beloved for their vibrant colors and juicy texture. Available in a variety of shapes and sizes, tomatoes bring a burst of freshness to countless dishes.
 
     Whether used in salads, sauces, or soups, tomatoes add a delightful tangy sweetness that enhances the overall flavour profile. Their bright acidity can balance out rich and savoury flavours, creating a harmonious taste experience.
@@ -119,8 +114,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 9,
     name: 'zucchini',
-    image:
-      'https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/zucchini_mw5c9q',
+    image: 'sage/zucchini_mw5c9q',
     description: `Zucchini, also known as courgette, is a delicious and adaptable vegetable that can be enjoyed in a variety of ways. It has a mild and slightly sweet flavour, with a tender texture that adds a delightful crunch to your dishes.
 
     There are many ways to prepare zucchini, making it a versatile ingredient in the kitchen. Zucchini can be grilled, sautéed, baked, or enjoyed raw in salads.

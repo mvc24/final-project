@@ -1,15 +1,35 @@
 import 'server-only';
 import { cache } from 'react';
-import { IngredientComboPairWithId } from '../app/data/ingredientComboPairsData';
 import { sql } from '../database/connect';
+import { Ingredient } from '../migrations/00003-createTableIngredients';
 
 export type IngredientCombo = {
   comboId: number;
   ingredientNames: string[] | null;
 };
 
+export type ComboList = {
+  comboId: number;
+  ingredientId: number;
+  name: string;
+};
+
+export type SimpleIngredient = {
+  id: number;
+  name: string;
+};
+
+type JsonAgg = SimpleIngredient[];
+
+export type IngredientComboObject = {
+  comboId: number;
+  ingredients: JsonAgg | null;
+};
+
 export const getIngredientComboPairs = cache(async () => {
-  const ingredientComboPairs = await sql<IngredientComboPairWithId[]>`
+  const ingredientComboPairs = await sql<
+    { id: number; comboId: number; ingredientId: number }[]
+  >`
     SELECT
       *
     FROM
@@ -52,4 +72,47 @@ export const getIngredientComboByComboId = cache(async (id: number) => {
       ingredient_combos.combo_id
   `;
   return ingredientCombo;
+});
+
+export const getComboList = cache(async () => {
+  const comboList = await sql<ComboList[]>`
+    SELECT
+      ingredient_combos.combo_id,
+      ingredient_combos.ingredient_id,
+      ingredients.name
+    FROM
+      ingredient_combos
+      JOIN ingredients ON ingredient_combos.ingredient_id = ingredients.id
+    GROUP BY
+      ingredient_combos.combo_id,
+      ingredient_combos.ingredient_id,
+      ingredients.name
+    ORDER BY
+      ingredient_combos.combo_id,
+      ingredient_combos.ingredient_id;
+  `;
+  return comboList;
+});
+
+export const getIngredientComboObjects = cache(async () => {
+  const ingredientComboObjects = await sql<IngredientComboObject[]>`
+    SELECT
+      combo_id AS "comboId",
+      JSON_AGG (
+        JSON_BUILD_OBJECT (
+          'id',
+          ingredients.id,
+          'name',
+          ingredients.name
+        )
+      ) AS "ingredients"
+    FROM
+      ingredient_combos
+      JOIN ingredients ON ingredient_combos.ingredient_id = ingredients.id
+    GROUP BY
+      combo_id
+    ORDER BY
+      combo_id;
+  `;
+  return ingredientComboObjects;
 });
