@@ -67,5 +67,6 @@ module.exports = {
     require('daisyui'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/container-queries'),
+    require('tw-elements/dist/plugin'),
   ],
 };

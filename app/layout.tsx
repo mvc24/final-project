@@ -18,10 +18,6 @@ export const metadata: Metadata = {
   description: 'inspiration for creative cooking',
 };
 
-// type Props = {
-//   children: ReactNode;
-// };
-
 export default async function RootLayout({
   children,
 }: {
@@ -61,8 +57,8 @@ export default async function RootLayout({
               <Link href="/">
                 <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
               </Link>
-              <div className="dropdown">
-                <div className="btn btn-ghost lg:hidden">
+              <button className="dropdown dropdown-hover">
+                <div className="btn btn-ghost rounded-full lg:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -78,7 +74,7 @@ export default async function RootLayout({
                     />
                   </svg>
                 </div>
-                <ul className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                <ul className="menu menu-sm dropdown-content transition ease-in-out mt-1 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                   <li>
                     <Link
                       className="transition hover:text-decoration-700"
@@ -104,7 +100,7 @@ export default async function RootLayout({
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </button>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1 text-lg">

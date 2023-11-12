@@ -10,7 +10,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getComboByID, getCombos } from '../../../database/combos';
 import {
   getIngredientComboByComboId,
-  getIngredientComboObjects,
   getIngredientCombos,
 } from '../../../database/ingredientCombos';
 import { getIngredientComboTagsById } from '../../../database/ingredientComboTags';
@@ -18,6 +17,7 @@ import {
   getIngredientByID,
   getIngredients,
   getMainIngredients,
+  getMainIngredientsById,
 } from '../../../database/ingredients';
 import { createSession } from '../../../database/sessions';
 import {
@@ -27,11 +27,7 @@ import {
   getUsers,
   User,
 } from '../../../database/users';
-import { Ingredient } from '../../../migrations/00003-createTableIngredients';
-import {
-  IngredientComboMapped,
-  ingredientCombosMapped,
-} from '../../../util/dbToGql';
+import { IngredientComboMapped } from '../../../util/dbToGql';
 
 export type GraphQlResponseBody =
   | {
@@ -63,12 +59,12 @@ const typeDefs = gql`
   }
 
   type Ingredient {
-    id: ID!
+    id: Int!
     name: String!
   }
 
   type MainIngredient {
-    id: ID!
+    id: Int!
     name: String!
     image: String
     description: String
@@ -126,8 +122,8 @@ const typeDefs = gql`
     loggedInUser(token: String!): LoggedInUser
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]
-    mainIngredientById(id: ID!): MainIngredient
-    ingredientById(id: ID!): Ingredient
+    mainIngredientById(id: Int!): MainIngredient
+    ingredientById(id: Int!): Ingredient
     combos: [Combo]
     comboById(id: Int!): Combo
     ingredientCombos: [IngredientCombo]
@@ -163,7 +159,7 @@ const resolvers = {
       return await getMainIngredients();
     },
     mainIngredientById: async (parent: null, args: { id: number }) => {
-      return await getIngredientByID(args.id);
+      return await getMainIngredientsById(args.id);
     },
     combos: async () => {
       return await getCombos();

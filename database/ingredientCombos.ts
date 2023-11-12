@@ -1,7 +1,6 @@
 import 'server-only';
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { Ingredient } from '../migrations/00003-createTableIngredients';
 
 export type IngredientCombo = {
   comboId: number;

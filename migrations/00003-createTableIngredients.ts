@@ -1,13 +1,5 @@
 import { Sql } from 'postgres';
 
-export type Ingredient = {
-  id: number;
-  name: string;
-  image: string | null;
-  description: string | null;
-  recipe: string | null;
-};
-
 export async function up(sql: Sql) {
   await sql`
     CREATE TABLE

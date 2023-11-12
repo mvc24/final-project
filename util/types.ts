@@ -13,3 +13,11 @@ export type MainIngredientProps = {
     image: string;
   };
 };
+
+export type Ingredient = {
+  id: number;
+  name: string;
+  image: string | null;
+  description: string | null;
+  recipe: string | null;
+};

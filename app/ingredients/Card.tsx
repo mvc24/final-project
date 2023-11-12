@@ -1,6 +1,5 @@
 'use client';
 import { CldImage } from 'next-cloudinary';
-import { Ingredient } from '../../migrations/00003-createTableIngredients';
 import { MainIngredientProps } from '../../util/types';
 
 export default function Card(props: MainIngredientProps) {
@@ -8,28 +7,21 @@ export default function Card(props: MainIngredientProps) {
   console.log('props.props: ', props.props);
   const ingredient = props.props;
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
-      <figure>
+    <div className="card w-60 bg-base-100 shadow-xl text-center">
+      <figure className="card image-full">
         <CldImage
-          width="200"
+          width="300"
           height="200"
           src={ingredient.image}
           sizes="100vw"
-          crop="thumb"
+          crop="fill"
           gravity="auto"
+          fillBackground
           alt="fennel"
         />
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">
-          {ingredient.name}
-          <div className="badge badge-secondary">NEW</div>
-        </h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
-          <div className="badge badge-outline">Fashion</div>
-          <div className="badge badge-outline">Products</div>
-        </div>
+      <div className="card-body items-center text-center">
+        <h2 className="card-title text-center text-xl">{ingredient.name}</h2>
       </div>
     </div>
   );
