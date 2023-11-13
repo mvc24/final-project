@@ -49,3 +49,15 @@ export const getMainIngredientsById = cache(async (id: number) => {
   `;
   return mainIngredientsById;
 });
+
+export const getMainIngredientsByName = cache(async (name: string) => {
+  const [mainIngredientsByName] = await sql<Ingredient[]>`
+    SELECT
+      *
+    FROM
+      ingredients
+    WHERE
+      name = ${name.toLowerCase()}
+  `;
+  return mainIngredientsByName;
+});

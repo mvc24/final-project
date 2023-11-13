@@ -18,6 +18,7 @@ import {
   getIngredients,
   getMainIngredients,
   getMainIngredientsById,
+  getMainIngredientsByName,
 } from '../../../database/ingredients';
 import { createSession } from '../../../database/sessions';
 import {
@@ -123,6 +124,7 @@ const typeDefs = gql`
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]
     mainIngredientById(id: Int!): MainIngredient
+    mainIngredientByName(name: String!): MainIngredient
     ingredientById(id: Int!): Ingredient
     combos: [Combo]
     comboById(id: Int!): Combo
@@ -160,6 +162,9 @@ const resolvers = {
     },
     mainIngredientById: async (parent: null, args: { id: number }) => {
       return await getMainIngredientsById(args.id);
+    },
+    mainIngredientByName: async (parent: null, args: { name: string }) => {
+      return await getMainIngredientsByName(args.name);
     },
     combos: async () => {
       return await getCombos();

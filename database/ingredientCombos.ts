@@ -25,6 +25,12 @@ export type IngredientComboObject = {
   ingredients: JsonAgg | null;
 };
 
+export type IngredientComboWithIds = {
+  comboId: number;
+  ingredientIds: number[] | null;
+  ingredientNames: string[] | null;
+};
+
 export const getIngredientComboPairs = cache(async () => {
   const ingredientComboPairs = await sql<
     { id: number; comboId: number; ingredientId: number }[]
@@ -71,6 +77,27 @@ export const getIngredientComboByComboId = cache(async (id: number) => {
       ingredient_combos.combo_id
   `;
   return ingredientCombo;
+});
+
+export const getIngredientCombosWithIngredientIds = cache(async () => {
+  const ingredientComboWithIds = await sql<IngredientComboWithIds[]>`
+    SELECT
+      ingredient_combos.combo_id,
+      ARRAY_AGG (
+        ingredient_combos.ingredient_id
+      ) AS ingredient_ids,
+      ARRAY_AGG (
+        ingredients.name
+      ) AS ingredient_names
+    FROM
+      ingredient_combos
+      JOIN ingredients ON ingredient_combos.ingredient_id = ingredients.id
+    GROUP BY
+      ingredient_combos.combo_id
+    ORDER BY
+      ingredient_combos.combo_id;
+  `;
+  return ingredientComboWithIds;
 });
 
 export const getComboList = cache(async () => {

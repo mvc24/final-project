@@ -24,7 +24,6 @@ export default async function Ingredients() {
   return (
     <div className="grid grid-cols-1 p-10 gap-4 md:grid-cols-3">
       {data.mainIngredients.map((ingredient) => {
-        console.log('ingredient in map: ', ingredient);
         return (
           <div className="col-span-1" key={`ingredient-div-${ingredient.id}`}>
             <Link href={`/ingredients/${ingredient.name}`}>
