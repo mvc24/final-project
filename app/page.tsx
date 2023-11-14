@@ -3,7 +3,7 @@ import './globals.css';
 export default function Home() {
   return (
     <div
-      className="hero min-h-screen max-h-fit"
+      className="hero"
       style={{
         backgroundImage:
           'url(https://res.cloudinary.com/dnzitfasn/image/upload/f_auto,q_auto/v1/sage/cover-eggplant)',

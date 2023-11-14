@@ -19,7 +19,7 @@ export default async function Ingredients() {
   });
 
   return (
-    <div className="grid grid-cols-1 p-10 gap-4 md:grid-cols-3">
+    <div className="grid grid-cols-1 p-10 gap-4 md:grid-cols-3 w-max mx-auto">
       {data.mainIngredients.map((ingredient) => {
         return (
           <div className="col-span-1" key={`ingredient-div-${ingredient.id}`}>

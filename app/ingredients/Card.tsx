@@ -17,7 +17,7 @@ export default function Card(props: MainIngredientProps) {
           crop="fill"
           gravity="auto"
           fillBackground
-          alt="fennel"
+          alt={ingredient.name}
         />
       </figure>
       <div className="card-body items-center text-center">

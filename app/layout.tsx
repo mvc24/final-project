@@ -127,9 +127,11 @@ export default async function RootLayout({
             <div className="navbar-end gap-4">
               {data.loggedInUser ? (
                 <div className="inline-flex gap-4">
-                  <span className="btn px-5 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg">
-                    {data.loggedInUser?.username}
-                  </span>
+                  <Link href={`/profile/${data.loggedInUser.username}`}>
+                    <span className="btn px-5 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg">
+                      {data.loggedInUser?.username}
+                    </span>
+                  </Link>
                   <LogoutButton />
                 </div>
               ) : (

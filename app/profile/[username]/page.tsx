@@ -1,9 +1,9 @@
-// this is a public profile page, let's think about whether I want to have this
+import UserInfoBox from './UserInfo';
 
 export default function UserProfilePage() {
   return (
     <div>
-      <div>profile</div>
+      <UserInfoBox data="" />
       <div>page</div>
     </div>
   );
