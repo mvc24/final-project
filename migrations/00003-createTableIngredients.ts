@@ -6,6 +6,7 @@ export async function up(sql: Sql) {
       ingredients (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         name VARCHAR(100) NOT NULL,
+        slug VARCHAR(80) UNIQUE,
         image VARCHAR(200),
         description TEXT,
         recipe TEXT

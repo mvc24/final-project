@@ -8,17 +8,14 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { getComboByID, getCombos } from '../../../database/combos';
-import {
-  getIngredientComboByComboId,
-  getIngredientCombos,
-} from '../../../database/ingredientCombos';
+import { getIngredientCombos } from '../../../database/ingredientCombos';
 import { getIngredientComboTagsById } from '../../../database/ingredientComboTags';
 import {
   getIngredientByID,
   getIngredients,
   getMainIngredients,
   getMainIngredientsById,
-  getMainIngredientsByName,
+  getMainIngredientsBySlug,
 } from '../../../database/ingredients';
 import { createSession } from '../../../database/sessions';
 import {
@@ -42,11 +39,6 @@ type CreateUser = {
   password: string;
 };
 
-type ShortIngredient = {
-  id: number;
-  name: string;
-};
-
 type LogInContext = {
   isLoggedIn: boolean;
 };
@@ -67,6 +59,7 @@ const typeDefs = gql`
   type MainIngredient {
     id: Int!
     name: String!
+    slug: String
     image: String
     description: String
     recipe: String
@@ -124,7 +117,7 @@ const typeDefs = gql`
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]
     mainIngredientById(id: Int!): MainIngredient
-    mainIngredientByName(name: String!): MainIngredient
+    mainIngredientBySlug(slug: String!): MainIngredient
     ingredientById(id: Int!): Ingredient
     combos: [Combo]
     comboById(id: Int!): Combo
@@ -163,8 +156,8 @@ const resolvers = {
     mainIngredientById: async (parent: null, args: { id: number }) => {
       return await getMainIngredientsById(args.id);
     },
-    mainIngredientByName: async (parent: null, args: { name: string }) => {
-      return await getMainIngredientsByName(args.name);
+    mainIngredientBySlug: async (parent: null, args: { name: string }) => {
+      return await getMainIngredientsBySlug(args.name);
     },
     combos: async () => {
       return await getCombos();
@@ -184,16 +177,6 @@ const resolvers = {
         }),
       );
       return mappedCombos;
-    },
-
-    ingredientComboById: async (parent: null, args: { comboId: number }) => {
-      const getCombos = await getIngredientComboByComboId(args.comboId);
-      const mappedCombosById = getCombos?.ingredientNames?.map((name) => {
-        if (!name) {
-          return [];
-        }
-        return [name];
-      });
     },
 
     ingredientComboTags: async () => {
@@ -239,10 +222,6 @@ const resolvers = {
         if (!newUser) {
           throw new GraphQLError('No user was created.');
         }
-        // const isValid: boolean = await bcrypt.compare(
-        //   args.password,
-        //   newUser.passwordHash,
-        // );
 
         console.log('create user: ', newUser);
 
@@ -278,7 +257,6 @@ const resolvers = {
       parent: null,
       args: { username: string; password: string },
     ) => {
-      // console.log('login endpoint from router: ', args.username, args.password);
       if (
         typeof args.username !== 'string' ||
         typeof args.password !== 'string' ||

@@ -42,12 +42,6 @@ export default async function RootLayout({
   });
   console.log('data: ', data);
 
-  // const user = !sessionToken?.value
-  //   ? undefined
-  //   : await getUserBySessionToken(sessionToken.value);
-
-  // get logged in user, check repo
-
   return (
     <html lang="en" className="text-main-900">
       <body className={outfit.className}>

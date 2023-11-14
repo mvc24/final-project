@@ -1,9 +1,10 @@
-import { Ingredient } from '../../migrations/00003-createTableIngredients';
+import { Ingredient } from '../../util/types';
 
 export const ingredients: Ingredient[] = [
   {
     id: 1,
     name: 'aubergine',
+    slug: 'aubergine',
     image: 'sage/aubergine_ftvmtg',
     description: `Aubergines or eggplants come in a lot of different sizes, shapes, and colours and can just about take on any flavour from all over the world.
     Those who do not like them have often made the acquaintance of undercooked ones, which is the one thing you should never do to it – better too dark than too light, trust me on that.
@@ -15,6 +16,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 2,
     name: 'beans',
+    slug: 'beans',
     image: 'sage/beans_gbaxci',
     description: `Beans come in a variety of shapes, colours, and sizes, and they are a versatile ingredient that can be used in various cuisines.
 
@@ -30,6 +32,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 3,
     name: 'chickpeas',
+    slug: 'chickpeas',
     image: 'sage/beans_gbaxci',
     description: `Chickpeas, also known as garbanzo beans, are versatile legumes that can be enjoyed in a variety of dishes. They have a creamy texture and a nutty flavour that adds depth to any recipe.
 
@@ -43,6 +46,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 4,
     name: 'fennel',
+    slug: 'fennel',
     image: 'sage/fennel_eclibx',
     description: `Fennel is surprisingly adaptable and aromatic vegetable that adds a unique flavour to a variety of dishes. It has a crunchy texture and a slightly sweet and anise-like taste.
 
@@ -53,7 +57,8 @@ export const ingredients: Ingredient[] = [
   },
   {
     id: 5,
-    name: 'kale & cavolo nero',
+    name: `kale & cavolo nero`,
+    slug: 'kale',
     image: 'sage/fennel_eclibx',
     description: `Kale and cavolo nero are leafy greens belonging to the cabbage family that offer a wealth of flavours and textures to elevate your dishes.
 
@@ -71,6 +76,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 6,
     name: 'mushrooms',
+    slug: 'mushrooms',
     image: 'sage/mushrooms_nvgtzh',
     description: `Although there are a great variety of different mushrooms that offer a wide range of flavours and textures in cooking, I decided to group them all together here. They come in various shapes, sizes, and colours, each with its own unique characteristics.
 
@@ -84,6 +90,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 7,
     name: 'pumpkin',
+    slug: 'pumpkin',
     image: 'sage/pumpkin_wr3vau',
     description: `Pumpkin and winter squash are vibrant and flavourful vegetables that add a delightful touch to a variety of dishes. With their distinct shapes, sizes, and colors, they bring a touch of warmth and richness to the table.
 
@@ -101,6 +108,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 8,
     name: 'tomatoes',
+    slug: 'tomatoes',
     image: 'sage/tomato_cesgxx',
     description: `Tomatoes are beloved for their vibrant colors and juicy texture. Available in a variety of shapes and sizes, tomatoes bring a burst of freshness to countless dishes.
 
@@ -114,6 +122,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 9,
     name: 'zucchini',
+    slug: 'zucchini',
     image: 'sage/zucchini_mw5c9q',
     description: `Zucchini, also known as courgette, is a delicious and adaptable vegetable that can be enjoyed in a variety of ways. It has a mild and slightly sweet flavour, with a tender texture that adds a delightful crunch to your dishes.
 
@@ -127,6 +136,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 10,
     name: 'Asian noodles',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -134,6 +144,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 11,
     name: 'balsamic vinegar',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -141,6 +152,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 12,
     name: 'basil',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -148,6 +160,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 13,
     name: 'bean sprouts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -155,6 +168,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 14,
     name: 'bok choy',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -162,6 +176,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 15,
     name: 'bread crumbs',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -169,6 +184,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 16,
     name: 'capers',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -176,6 +192,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 17,
     name: 'cheese',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -183,6 +200,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 18,
     name: 'cucumbers',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -190,6 +208,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 19,
     name: 'dill',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -197,6 +216,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 20,
     name: 'feta cheese',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -204,6 +224,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 21,
     name: 'garlic',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -211,6 +232,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 22,
     name: 'ginger',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -218,6 +240,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 23,
     name: 'herbs',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -225,6 +248,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 24,
     name: 'chili flakes',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -232,6 +256,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 25,
     name: 'lemon',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -239,6 +264,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 26,
     name: 'apricots',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -246,6 +272,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 27,
     name: 'bay leaf',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -253,6 +280,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 28,
     name: 'bulgur',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -260,6 +288,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 29,
     name: 'chiles',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -267,6 +296,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 30,
     name: 'cilantro',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -274,6 +304,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 31,
     name: 'tomato paste',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -281,6 +312,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 32,
     name: 'cumin',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -288,6 +320,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 33,
     name: 'barberries',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -295,6 +328,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 34,
     name: 'goat cheese',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -302,6 +336,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 35,
     name: 'spinach',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -309,6 +344,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 36,
     name: 'citrus',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -316,6 +352,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 37,
     name: 'arugula',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -323,6 +360,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 38,
     name: 'avocados',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -330,6 +368,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 39,
     name: 'blood oranges',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -337,6 +376,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 40,
     name: 'cranberries',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -344,6 +384,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 41,
     name: 'olives',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -351,6 +392,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 42,
     name: 'fennel seeds',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -358,6 +400,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 43,
     name: 'oranges',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -365,6 +408,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 44,
     name: 'apples',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -372,6 +416,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 45,
     name: 'avocado',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -379,6 +424,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 46,
     name: 'brown rice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -386,6 +432,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 47,
     name: 'miso',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -393,6 +440,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 48,
     name: 'olive oil',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -400,6 +448,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 49,
     name: 'rosemary',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -407,6 +456,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 50,
     name: 'breadcrumbs',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -414,6 +464,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 51,
     name: 'butter',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -421,6 +472,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 52,
     name: 'lemon juice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -428,6 +480,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 53,
     name: 'allspice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -435,6 +488,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 54,
     name: 'almonds',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -442,6 +496,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 55,
     name: 'brown sugar',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -449,6 +504,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 56,
     name: 'cinnamon',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -456,6 +512,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 57,
     name: 'coconut milk',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -463,6 +520,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 58,
     name: 'onions',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -470,6 +528,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 59,
     name: 'brown butter',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -477,6 +536,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 60,
     name: 'chestnuts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -484,6 +544,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 61,
     name: 'orange',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -491,6 +552,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 62,
     name: 'sage',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -498,6 +560,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 63,
     name: 'eggs',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -505,6 +568,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 64,
     name: 'mint',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -512,6 +576,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 65,
     name: 'cashews',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -519,6 +584,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 66,
     name: 'lime juice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -526,6 +592,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 67,
     name: 'parsley',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -533,6 +600,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 68,
     name: 'chipotle chiles',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -540,6 +608,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 69,
     name: 'coconut',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -547,6 +616,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 70,
     name: 'pine nuts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -554,6 +624,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 71,
     name: 'peanut sauce',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -561,6 +632,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 72,
     name: 'bell peppers',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -568,6 +640,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 73,
     name: 'ricotta',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -575,6 +648,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 74,
     name: 'Parmesan cheese',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -582,6 +656,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 75,
     name: 'celery',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -589,6 +664,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 76,
     name: 'walnuts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -596,6 +672,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 77,
     name: 'soy sauce',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -603,6 +680,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 78,
     name: 'escarole',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -610,6 +688,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 79,
     name: 'sun-dried tomatoes',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -617,6 +696,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 80,
     name: 'pistachios',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -624,6 +704,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 81,
     name: 'cucumber',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -631,6 +712,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 82,
     name: 'eggplant',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -638,6 +720,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 83,
     name: 'coriander',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -645,6 +728,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 84,
     name: 'red onions',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -652,6 +736,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 85,
     name: 'sweet potatoes',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -659,6 +744,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 86,
     name: 'beets',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -666,6 +752,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 87,
     name: 'grapefruit',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -673,6 +760,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 88,
     name: 'romaine',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -680,6 +768,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 89,
     name: 'nuts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -687,6 +776,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 90,
     name: 'mustard',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -694,6 +784,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 91,
     name: 'vinegar',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -701,6 +792,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 92,
     name: 'dried apricots',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -708,6 +800,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 93,
     name: 'hard-boiled egg',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -715,6 +808,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 94,
     name: 'sesame oil',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -722,6 +816,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 95,
     name: 'tahini',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -729,6 +824,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 96,
     name: 'sesame seeds',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -736,6 +832,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 97,
     name: 'white beans',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -743,6 +840,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 98,
     name: 'thyme',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -750,6 +848,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 99,
     name: 'potatoes',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -757,6 +856,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 100,
     name: 'leeks',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -764,6 +864,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 101,
     name: 'mirin',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -771,6 +872,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 102,
     name: 'raisins',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -778,6 +880,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 103,
     name: 'curry paste',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -785,6 +888,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 104,
     name: 'couscous',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -792,6 +896,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 105,
     name: 'lime',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -799,6 +904,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 106,
     name: 'curry powder',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -806,6 +912,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 107,
     name: 'tamari',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -813,6 +920,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 108,
     name: 'pecans',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -820,6 +928,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 109,
     name: 'mustard greens',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -827,6 +936,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 110,
     name: 'sour cream',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -834,6 +944,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 111,
     name: 'mozzarella',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -841,6 +952,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 112,
     name: 'curry',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -848,6 +960,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 113,
     name: 'polenta',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -855,6 +968,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 114,
     name: 'oregano',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -862,6 +976,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 115,
     name: 'edamame',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -869,6 +984,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 116,
     name: 'pomegranate molasses',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -876,6 +992,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 117,
     name: 'yogurt',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -883,6 +1000,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 118,
     name: 'scallions',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -890,6 +1008,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 119,
     name: 'rice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -897,6 +1016,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 120,
     name: 'hazelnuts',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -904,6 +1024,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 121,
     name: 'salads',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -911,6 +1032,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 122,
     name: 'anchovies',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -918,6 +1040,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 123,
     name: 'tofu',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -925,6 +1048,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 124,
     name: 'cloves',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -932,6 +1056,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 125,
     name: 'maple syrup',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -939,6 +1064,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 126,
     name: 'honey',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -946,6 +1072,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 127,
     name: 'nutmeg',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -953,6 +1080,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 128,
     name: 'ricotta cheese',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -960,6 +1088,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 129,
     name: 'corn',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -967,6 +1096,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 130,
     name: 'sesame',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -974,6 +1104,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 131,
     name: 'turmeric',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -981,6 +1112,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 132,
     name: 'wild rice',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -988,6 +1120,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 133,
     name: 'egg',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -995,6 +1128,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 134,
     name: 'lemon zest',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1002,6 +1136,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 135,
     name: 'creme fraiche',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1009,6 +1144,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 136,
     name: 'pasta',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1016,6 +1152,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 137,
     name: 'vanilla',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1023,6 +1160,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 138,
     name: 'lemongrass',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1030,6 +1168,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 139,
     name: 'watermelon',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1037,6 +1176,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 140,
     name: 'canned sardines',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1044,6 +1184,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 141,
     name: 'tarragon',
+    slug: null,
     image: null,
     description: null,
     recipe: null,
@@ -1051,6 +1192,7 @@ export const ingredients: Ingredient[] = [
   {
     id: 142,
     name: 'salt',
+    slug: null,
     image: null,
     description: null,
     recipe: null,

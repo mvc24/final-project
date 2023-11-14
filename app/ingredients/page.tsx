@@ -5,16 +5,13 @@ import { MainIngredientResponse } from '../../util/types';
 import Card from './Card';
 
 export default async function Ingredients() {
-  // console.log('getIngredientComboObjects: ', await getIngredientComboObjects());
-  // console.log('getIngredientCombos: ', await getIngredientCombos());
-  // console.log('mapped combos: ', await ingredientCombosMapped());
-
   const { data } = await getClient().query<MainIngredientResponse>({
     query: gql`
       query GetMainIngredients {
         mainIngredients {
           id
           name
+          slug
           image
         }
       }
@@ -26,7 +23,7 @@ export default async function Ingredients() {
       {data.mainIngredients.map((ingredient) => {
         return (
           <div className="col-span-1" key={`ingredient-div-${ingredient.id}`}>
-            <Link href={`/ingredients/${ingredient.name}`}>
+            <Link href={`/ingredients/${ingredient.slug}`}>
               <Card props={ingredient} />
             </Link>
           </div>

@@ -7,6 +7,7 @@ export async function up(sql: Sql) {
       INSERT INTO
         ingredients (
           name,
+          slug,
           image,
           description,
           recipe
@@ -14,6 +15,7 @@ export async function up(sql: Sql) {
       VALUES
         (
           ${ingredient.name},
+          ${ingredient.slug},
           ${ingredient.image},
           ${ingredient.description},
           ${ingredient.recipe}
