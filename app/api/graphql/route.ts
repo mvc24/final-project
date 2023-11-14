@@ -17,9 +17,13 @@ import {
   getMainIngredientsById,
   getMainIngredientsBySlug,
 } from '../../../database/ingredients';
-import { createSession } from '../../../database/sessions';
+import {
+  createSession,
+  getValidSessionByToken,
+} from '../../../database/sessions';
 import {
   createUser,
+  deleteUserById,
   getUserBySessionToken,
   getUserByUsername,
   getUsers,
@@ -39,8 +43,17 @@ type CreateUser = {
   password: string;
 };
 
-type LogInContext = {
-  isLoggedIn: boolean;
+type Token = {
+  token: string;
+};
+
+type UserContext = {
+  isUserLoggedIn: boolean;
+  req: { cookies: { sessionToken: string } };
+  user: {
+    id: number;
+    username: string;
+  };
 };
 
 const typeDefs = gql`
@@ -51,6 +64,9 @@ const typeDefs = gql`
     passwordHash: String!
   }
 
+  type Token {
+    token: String
+  }
   type Ingredient {
     id: Int!
     name: String!
@@ -75,11 +91,6 @@ const typeDefs = gql`
     name: String!
   }
 
-  fragment TagNames on Tags {
-    name
-  }
-
-  # this is my Book
   type IngredientCombo {
     comboId: Int!
     ingredientNames: [Ingredient]
@@ -114,22 +125,18 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     loggedInUser(token: String!): LoggedInUser
+
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]
     mainIngredientById(id: Int!): MainIngredient
     mainIngredientBySlug(slug: String!): MainIngredient
     ingredientById(id: Int!): Ingredient
-    combos: [Combo]
-    comboById(id: Int!): Combo
-    ingredientCombos: [IngredientCombo]
-    ingredientComboById(id: Int!): IngredientCombo
-    ingredientComboTags: [IngredientComboTags]
-    ingredientComboTagsById(id: Int!): IngredientComboTags
-    ingredientInCombo: [IngredientCombo]
   }
   type Mutation {
     createUser(username: String!, email: String!, password: String!): User
     login(username: String!, password: String!): LoggedInUser
+    deleteUserById(id: ID!): User
+    logout(token: String): Token
   }
 `;
 
@@ -159,42 +166,6 @@ const resolvers = {
     mainIngredientBySlug: async (parent: null, args: { name: string }) => {
       return await getMainIngredientsBySlug(args.name);
     },
-    combos: async () => {
-      return await getCombos();
-    },
-    comboById: async (parent: null, args: { id: number }) => {
-      return await getComboByID(args.id);
-    },
-
-    ingredientCombos: async () => {
-      const ingredientCombos: IngredientComboMapped[] =
-        await getIngredientCombos();
-
-      const mappedCombos: IngredientComboMapped[] = ingredientCombos.map(
-        ({ comboId, ingredientNames }) => ({
-          comboId,
-          ingredientNames: ingredientNames || [],
-        }),
-      );
-      return mappedCombos;
-    },
-
-    ingredientComboTags: async () => {
-      return await getIngredientCombos();
-    },
-    ingredientComboTagsById: async (parent: null, args: { id: number }) => {
-      return await getIngredientComboTagsById(args.id);
-    },
-
-    // IngredientInCombo: {
-    //   ingredient(parent: ShortIngredient) {
-    //     return {
-    //       name: parent.name,
-    //     };
-    //   },
-    // },
-
-    // }
   },
   Mutation: {
     createUser: async (parent: null, args: CreateUser) => {
@@ -307,6 +278,16 @@ const resolvers = {
         throw new GraphQLError('Password or username is incorrect.');
       }
     },
+    deleteUserById: async (
+      parent: null,
+      args: { id: number },
+      context: UserContext,
+    ) => {
+      if (context.user.id && context.user.id !== args.id) {
+        throw new GraphQLError('Unauthorized operation');
+      }
+      await deleteUserById(args.id);
+    },
   },
 };
 
@@ -318,24 +299,22 @@ const schema = makeExecutableSchema({
 const apolloServer = new ApolloServer({ schema });
 
 const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
-  context: async (req) => {
-    const sessionTokenCookie = req.cookies.get('sessionToken');
-
-    // console.log('req.cookies: ', req.cookies.get('sessionToken'));
-
-    // console.log('sessionTokenCookie in handler', sessionTokenCookie);
-
-    const session =
+  context: async (req, res) => {
+    const sessionTokenCookie = cookies().get('sessionToken');
+    const isLoggedIn =
       sessionTokenCookie &&
-      (await getUserBySessionToken(sessionTokenCookie.value));
-
-    // console.log('check if the session is valid: ', session);
-
-    // console.log('Session cookie: ', sessionCookie);
+      (await getValidSessionByToken(sessionTokenCookie.value));
+    const user = isLoggedIn
+      ? await getUserBySessionToken(sessionTokenCookie.value)
+      : undefined;
+    console.log('sessionTokenCookie in handler: ', sessionTokenCookie);
+    console.log('isLoggedIn: ', isLoggedIn);
 
     return {
-      session,
       req,
+      res,
+      isLoggedIn,
+      user,
     };
   },
 });

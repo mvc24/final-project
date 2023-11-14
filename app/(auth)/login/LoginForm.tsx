@@ -35,14 +35,17 @@ export default function LoginForm() {
   });
 
   return (
-    <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
+    <form
+      onSubmit={async () => await loginHandler()}
+      className="relative flex flex-col justify-center min-h-screen overflow-hidden"
+    >
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1>Login</h1>
         <div>
           <label>
             username
             <input
               value={username}
+              className="mt-1 p-2 block input input-bordered w-full"
               onChange={(event) => {
                 setUsername(event.currentTarget.value);
               }}
@@ -53,6 +56,7 @@ export default function LoginForm() {
             password
             <input
               type="password"
+              className="mt-1 p-2 block input input-bordered w-full"
               value={password}
               onChange={(event) => {
                 setPassword(event.currentTarget.value);
@@ -60,7 +64,8 @@ export default function LoginForm() {
             />
           </label>
           <button
-            onClick={async () => {
+            className="btn btn-ghost p-4 m-2 items-center"
+            formAction={async () => {
               await loginHandler();
             }}
           >
@@ -69,6 +74,6 @@ export default function LoginForm() {
         </div>
         <div className="error">{onError}</div>
       </div>
-    </div>
+    </form>
   );
 }

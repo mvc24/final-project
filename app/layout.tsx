@@ -40,7 +40,7 @@ export default async function RootLayout({
       token: sessionToken?.value || '',
     },
   });
-  console.log('data: ', data);
+  console.log('data on layout: ', data);
 
   return (
     <html lang="en" className="text-main-900">

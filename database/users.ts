@@ -86,3 +86,11 @@ export const getUserBySessionToken = cache(async (token: string) => {
   `;
   return user;
 });
+
+export const deleteUserById = cache(async (id: number) => {
+  await sql`
+    DELETE FROM users
+    WHERE
+      id = ${id}
+  `;
+});
