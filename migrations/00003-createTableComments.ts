@@ -6,8 +6,7 @@ export async function up(sql: Sql) {
       comments (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         user_id INTEGER NOT NULL REFERENCES users (id),
-        body text NOT NULL,
-        created_at TIMESTAMP DEFAULT NOW ()
+        body text NOT NULL
       );
   `;
 }

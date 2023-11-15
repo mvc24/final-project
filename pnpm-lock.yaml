@@ -32,6 +32,12 @@ dependencies:
   '@tailwindcss/container-queries':
     specifier: ^0.1.1
     version: 0.1.1(tailwindcss@3.3.3)
+  '@types/graphql-date':
+    specifier: ^1.0.9
+    version: 1.0.9
+  '@types/graphql-iso-date':
+    specifier: ^3.4.3
+    version: 3.4.3
   bcrypt:
     specifier: ^5.1.1
     version: 5.1.1
@@ -1927,6 +1933,18 @@ packages:
       '@types/express-serve-static-core': 4.17.39
       '@types/qs': 6.9.9
       '@types/serve-static': 1.15.4
+    dev: false
+
+  /@types/graphql-date@1.0.9:
+    resolution: {integrity: sha512-RG9UiNAvpB1/8Fl371wSAq/zUDp5yA6dFwEItdzxwliUsLLHvE2EwGbKmZ4M8o2A6rQEJg/RLZFS/2T94EfX5w==}
+    dependencies:
+      graphql: 14.7.0
+    dev: false
+
+  /@types/graphql-iso-date@3.4.3:
+    resolution: {integrity: sha512-XBNgBXEY8Yy0Ax2NE7fCmeCTk8dc4AALPWpaDtIuP0bIez2eyPn9CVuhDnG153hUnX+QRASKJXcc+I2pplQ2ww==}
+    dependencies:
+      graphql: 15.8.0
     dev: false
 
   /@types/http-errors@2.0.3:
@@ -4859,6 +4877,18 @@ packages:
       graphql: 16.8.1
     dev: true
 
+  /graphql@14.7.0:
+    resolution: {integrity: sha512-l0xWZpoPKpppFzMfvVyFmp9vLN7w/ZZJPefUicMCepfJeQ8sMcztloGYY9DfjVPo6tIUDzU5Hw3MUbIjj9AVVA==}
+    engines: {node: '>= 6.x'}
+    dependencies:
+      iterall: 1.3.0
+    dev: false
+
+  /graphql@15.8.0:
+    resolution: {integrity: sha512-5gghUc24tP9HRznNpV2+FIoq3xKkj5dTQqf4v0CpdPbFVwFkWoxOM+o+2OC9ZSvjEMTjfmG9QT+gcvggTwW1zw==}
+    engines: {node: '>= 10.x'}
+    dev: false
+
   /graphql@16.8.1:
     resolution: {integrity: sha512-59LZHPdGZVh695Ud9lRzPBVTtlX9ZCV150Er2W43ro37wVof0ctenSaskPPjN7lVTIN8mSZt8PHUNKZuNQUuxw==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
@@ -5419,6 +5449,10 @@ packages:
     dependencies:
       ws: 8.14.2
     dev: true
+
+  /iterall@1.3.0:
+    resolution: {integrity: sha512-QZ9qOMdF+QLHxy1QIpUHUU1D5pS2CG2P69LF6L6CPjPYA/XMOmKV3PZpawHoAjHNyB0swdVTRxdYT4tbBbxqwg==}
+    dev: false
 
   /iterator.prototype@1.1.2:
     resolution: {integrity: sha512-DR33HMMr8EzwuRL8Y9D3u2BMj8+RqSE850jfGu59kS7tbmPLzGkZmVSfyCFSDxuZiEY6Rzt3T2NA/qU+NwVj1w==}

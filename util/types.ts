@@ -27,9 +27,15 @@ export type Ingredient = {
 
 export type Comment = {
   id: number;
+  userId: number;
   username: string;
   body: string;
-  createdAt: Date | null;
+};
+
+export type NewComment = {
+  id: number;
+  userId: number;
+  body: string;
 };
 
 export type User = {

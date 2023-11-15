@@ -1,14 +1,14 @@
 import { cache } from 'react';
-import { Comment } from '../util/types';
+import { Comment, NewComment } from '../util/types';
 import { sql } from './connect';
 
 export const getComments = cache(async () => {
   const comments = await sql<Comment[]>`
     SELECT
       comments.id,
+      comments.user_id,
       users.username,
-      comments.body,
-      comments.created_at
+      comments.body
     FROM
       comments AS comments
       INNER JOIN users ON users.id = comments.user_id;
@@ -16,13 +16,13 @@ export const getComments = cache(async () => {
   return comments;
 });
 
-export const getCommentsByUserId = cache(async (username: string) => {
+export const getCommentsByUsername = cache(async (username: string) => {
   const comments = await sql<Comment[]>`
     SELECT
       comments.id,
+      comments.user_id,
       users.username,
-      comments.body,
-      comments.created_at
+      comments.body
     FROM
       comments AS comments
       INNER JOIN users ON users.id = comments.user_id
@@ -33,7 +33,7 @@ export const getCommentsByUserId = cache(async (username: string) => {
 });
 
 export const createComment = cache(async (userId: number, body: string) => {
-  const [newComment] = await sql<Comment[]>`
+  const [newComment] = await sql<NewComment[]>`
     INSERT INTO
       comments (
         user_id,
@@ -43,7 +43,7 @@ export const createComment = cache(async (userId: number, body: string) => {
       (
         ${userId},
         ${body}
-      )
+      ) RETURNING *
   `;
   return newComment;
 });

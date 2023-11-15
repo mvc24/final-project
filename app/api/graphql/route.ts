@@ -4,13 +4,15 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
-import { typeDefs as scalarTypeDefs } from 'graphql-scalars';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { getComboByID, getCombos } from '../../../database/combos';
-import { getIngredientCombos } from '../../../database/ingredientCombos';
-import { getIngredientComboTagsById } from '../../../database/ingredientComboTags';
+import {
+  createComment,
+  deleteComment,
+  getComments,
+  getCommentsByUsername,
+} from '../../../database/comments';
 import {
   getIngredientByID,
   getIngredients,
@@ -57,8 +59,6 @@ type UserContext = {
 };
 
 const typeDefs = gql`
-  ...scalarTypeDefs,
-
   type User {
     id: ID!
     username: String!
@@ -70,11 +70,9 @@ const typeDefs = gql`
     token: String
   }
 
-  type Comment = {
-    id: ID!
-    username: String!
+  type Comment {
+    userId: Int!
     body: String!
-    createdAt: DateTime
   }
 
   type Ingredient {
@@ -145,15 +143,22 @@ const typeDefs = gql`
     ingredientById(id: Int!): Ingredient
   }
   type Mutation {
+    # user mutations
     createUser(username: String!, email: String!, password: String!): User
     login(username: String!, password: String!): LoggedInUser
-    deleteUserById(id: ID!): User
     logout(token: String): Token
+    # this one doesn't work yet
+    deleteUserById(id: ID!): User
+
+    # comment mutations
+    createComment(userId: Int!, body: String!): Comment
+    deleteComment(id: ID!): Comment
   }
 `;
 
 const resolvers = {
   Query: {
+    // user queries
     users: async () => {
       return await getUsers();
     },
@@ -163,6 +168,8 @@ const resolvers = {
     loggedInUser: async (parent: null, args: { token: string }) => {
       return await getUserBySessionToken(args.token);
     },
+
+    // ingredient queries
     ingredients: async () => {
       return await getIngredients();
     },
@@ -177,6 +184,14 @@ const resolvers = {
     },
     mainIngredientBySlug: async (parent: null, args: { name: string }) => {
       return await getMainIngredientsBySlug(args.name);
+    },
+
+    // comment queries
+    comments: async () => {
+      return await getComments();
+    },
+    commentsByUsername: async (parent: null, args: { username: string }) => {
+      return await getCommentsByUsername(args.username);
     },
   },
   Mutation: {
@@ -299,6 +314,22 @@ const resolvers = {
         throw new GraphQLError('Unauthorized operation');
       }
       await deleteUserById(args.id);
+    },
+
+    createComment: async (
+      parent: null,
+      args: { userId: number; body: string },
+    ) => {
+      if (typeof args.userId !== 'number' || !args.userId) {
+        throw new GraphQLError('Required field userId is missing');
+      } else if (typeof args.body !== 'string' || !args.body) {
+        throw new GraphQLError('Required field body is missing');
+      }
+      return await createComment(args.userId, args.body);
+    },
+
+    deleteComment: async (parent: null, args: { id: number }) => {
+      return await deleteComment(args.id);
     },
   },
 };
