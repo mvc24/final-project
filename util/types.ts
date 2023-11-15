@@ -24,3 +24,17 @@ export type Ingredient = {
   description: string | null;
   recipe: string | null;
 };
+
+export type Comment = {
+  id: number;
+  username: string;
+  body: string;
+  createdAt: Date | null;
+};
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+  passwordHash: string;
+};

@@ -1,12 +1,6 @@
 import { cache } from 'react';
 import { sql } from '../database/connect';
-
-export type User = {
-  id: number;
-  username: string;
-  email: string;
-  passwordHash: string;
-};
+import { User } from '../util/types';
 
 export const createUser = cache(
   async (username: string, email: string, passwordHash: string) => {

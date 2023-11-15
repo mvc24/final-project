@@ -4,6 +4,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
+import { typeDefs as scalarTypeDefs } from 'graphql-scalars';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -27,9 +28,8 @@ import {
   getUserBySessionToken,
   getUserByUsername,
   getUsers,
-  User,
 } from '../../../database/users';
-import { IngredientComboMapped } from '../../../util/dbToGql';
+import { User } from '../../../util/types';
 
 export type GraphQlResponseBody =
   | {
@@ -57,6 +57,8 @@ type UserContext = {
 };
 
 const typeDefs = gql`
+  ...scalarTypeDefs,
+
   type User {
     id: ID!
     username: String!
@@ -67,6 +69,14 @@ const typeDefs = gql`
   type Token {
     token: String
   }
+
+  type Comment = {
+    id: ID!
+    username: String!
+    body: String!
+    createdAt: DateTime
+  }
+
   type Ingredient {
     id: Int!
     name: String!
@@ -125,6 +135,8 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     loggedInUser(token: String!): LoggedInUser
+    comments: [Comment]
+    commentsByUsername(username: String!): Comment
 
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]

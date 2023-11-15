@@ -1,4 +1,5 @@
 import './globals.css';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -18,9 +19,12 @@ export default function Home() {
             excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
             a id nisi.
           </p>
-          <button className="btn px-6 h-14 lowercase text-xl transform-none rounded-full border-0 bg-decoration-700 text-decoration-50 hover:bg-decoration-50 hover:text-decoration-800 hover:border-0">
+          <Link
+            href="/ingredients"
+            className="btn px-6 h-14 lowercase text-xl transform-none rounded-full border-0 bg-decoration-700 text-decoration-50 hover:bg-decoration-50 hover:text-decoration-800 hover:border-0"
+          >
             get inspired
-          </button>
+          </Link>
         </div>
       </div>
     </div>
