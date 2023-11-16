@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import { cookies } from 'next/headers';
-import { redirect, useRouter } from 'next/navigation';
-import Router from 'next/router';
+import { redirect } from 'next/navigation';
 import { getClient } from '../../../util/apolloClient';
 
 export async function generateMetadata() {

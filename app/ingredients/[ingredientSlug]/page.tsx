@@ -1,9 +1,13 @@
+import { gql } from '@apollo/client';
+import { cookies } from 'next/headers';
 import {
   getIngredientCombos,
   IngredientCombo,
 } from '../../../database/ingredientCombos';
 import { getMainIngredientsBySlug } from '../../../database/ingredients';
+import { getClient } from '../../../util/apolloClient';
 import { MainIngredientProps } from '../../../util/types';
+import CreateCommentForm from './CommentForm';
 import Images from './Images';
 
 type Props = {
@@ -15,14 +19,14 @@ type Props = {
 
 export default async function IngredientPage(props: Props) {
   console.log('props.params on ingredient page: ', props.params);
-  // console.log(
-  //   'getMainIngredientsByName: ',
-  //   await getMainIngredientsByName('beans'),
-  // );
 
-  const data = await getMainIngredientsBySlug(props.params.ingredientSlug);
+  console.log('single ingredient page props: ', props);
 
-  if (!data) {
+  const mainIngredients = await getMainIngredientsBySlug(
+    props.params.ingredientSlug,
+  );
+
+  if (!mainIngredients) {
     return 'not found';
   }
 
@@ -31,7 +35,23 @@ export default async function IngredientPage(props: Props) {
     return 'not found';
   }
 
-  console.log('information: ', information);
+  const sessionToken = cookies().get('sessionToken');
+
+  const { data } = await getClient().query({
+    query: gql`
+      query LoggedInUser($token: String!) {
+        loggedInUser(token: $token) {
+          id
+          username
+        }
+      }
+    `,
+    variables: {
+      token: sessionToken?.value || '',
+    },
+  });
+
+  // console.log('information: ', information);
 
   const result = information.filter((ingredient) => {
     if (ingredient.ingredientNames![0]?.includes(props.params.ingredientSlug)) {
@@ -40,17 +60,17 @@ export default async function IngredientPage(props: Props) {
     return ingredient.ingredientNames;
   });
 
-  console.log('result: ', result);
   // console.log('result: ', result);
-  // console.log('data on ingredient page: ', data);
+  // console.log('result: ', result);
+  // console.log('mainIngredients on ingredient page: ', mainIngredients);
 
   return (
     <div>
-      <Images props={data} />
-      <h1>{data.name}</h1>
+      <Images props={mainIngredients} />
+      <h1>{mainIngredients.name}</h1>
       <h2>description</h2>
-      <div>{data.description}</div>
-      <div>{data.recipe}</div>
+      <div>{mainIngredients.description}</div>
+      <div>{mainIngredients.recipe}</div>
       <div>
         {result.map((combo) => {
           const ingredients = combo.ingredientNames || [];
@@ -74,6 +94,9 @@ export default async function IngredientPage(props: Props) {
           }
           return null; // If there's no matching ingredient, don't render anything
         })}
+      </div>
+      <div>
+        <CreateCommentForm userId={data.loggedInUser.id} />
       </div>
     </div>
   );

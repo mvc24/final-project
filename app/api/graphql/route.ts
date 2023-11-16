@@ -71,7 +71,8 @@ const typeDefs = gql`
   }
 
   type Comment {
-    userId: Int!
+    id: ID!
+    userId: ID!
     body: String!
   }
 
@@ -151,7 +152,7 @@ const typeDefs = gql`
     deleteUserById(id: ID!): User
 
     # comment mutations
-    createComment(userId: Int!, body: String!): Comment
+    createComment(userId: ID!, body: String!): Comment
     deleteComment(id: ID!): Comment
   }
 `;
@@ -318,14 +319,16 @@ const resolvers = {
 
     createComment: async (
       parent: null,
-      args: { userId: number; body: string },
+      args: { userId: string; body: string },
     ) => {
-      if (typeof args.userId !== 'number' || !args.userId) {
+      if (typeof args.userId !== 'string' || !args.userId) {
         throw new GraphQLError('Required field userId is missing');
       } else if (typeof args.body !== 'string' || !args.body) {
         throw new GraphQLError('Required field body is missing');
       }
-      return await createComment(args.userId, args.body);
+      const userId = parseInt(args.userId);
+
+      return await createComment(userId, args.body);
     },
 
     deleteComment: async (parent: null, args: { id: number }) => {
