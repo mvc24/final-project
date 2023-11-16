@@ -11,6 +11,7 @@ import {
   createComment,
   deleteComment,
   getComments,
+  getCommentsByIngredientSlug,
   getCommentsByUsername,
 } from '../../../database/comments';
 import {
@@ -27,6 +28,7 @@ import {
 import {
   createUser,
   deleteUserById,
+  getUserById,
   getUserBySessionToken,
   getUserByUsername,
   getUsers,
@@ -73,7 +75,10 @@ const typeDefs = gql`
   type Comment {
     id: ID!
     userId: ID!
+    username: String!
     body: String!
+    ingredientId: Int!
+    slug: String
   }
 
   type Ingredient {
@@ -132,10 +137,13 @@ const typeDefs = gql`
 
   type Query {
     users: [User]
-    user(username: String!): User
+    userByName(username: String!): User
+    userById(id: ID!): User
     loggedInUser(token: String!): LoggedInUser
     comments: [Comment]
     commentsByUsername(username: String!): Comment
+    commentsByIngredientId(ingredientId: Int!): [Comment]
+    commentsByIngredientSlug(slug: String): [Comment]
 
     ingredients: [Ingredient]
     mainIngredients: [MainIngredient]
@@ -152,7 +160,7 @@ const typeDefs = gql`
     deleteUserById(id: ID!): User
 
     # comment mutations
-    createComment(userId: ID!, body: String!): Comment
+    createComment(userId: ID!, body: String!, ingredientId: Int!): Comment
     deleteComment(id: ID!): Comment
   }
 `;
@@ -163,8 +171,11 @@ const resolvers = {
     users: async () => {
       return await getUsers();
     },
-    user: async (parent: null, args: { username: string }) => {
+    userByName: async (parent: null, args: { username: string }) => {
       return await getUserByUsername(args.username);
+    },
+    userById: async (parent: null, args: { id: number }) => {
+      return await getUserById(args.id);
     },
     loggedInUser: async (parent: null, args: { token: string }) => {
       return await getUserBySessionToken(args.token);
@@ -193,6 +204,17 @@ const resolvers = {
     },
     commentsByUsername: async (parent: null, args: { username: string }) => {
       return await getCommentsByUsername(args.username);
+    },
+    commentsByIngredientId: async (
+      parent: null,
+      args: { ingredientId: number },
+    ) => {
+      const ingredientId = args.ingredientId.toString();
+      return await getCommentsByUsername(ingredientId);
+    },
+
+    commentsByIngredientSlug: async (parent: null, args: { slug: string }) => {
+      return await getCommentsByIngredientSlug(args.slug);
     },
   },
   Mutation: {
@@ -319,7 +341,7 @@ const resolvers = {
 
     createComment: async (
       parent: null,
-      args: { userId: string; body: string },
+      args: { userId: string; body: string; ingredientId: number },
     ) => {
       if (typeof args.userId !== 'string' || !args.userId) {
         throw new GraphQLError('Required field userId is missing');
@@ -328,7 +350,7 @@ const resolvers = {
       }
       const userId = parseInt(args.userId);
 
-      return await createComment(userId, args.body);
+      return await createComment(userId, args.body, args.ingredientId);
     },
 
     deleteComment: async (parent: null, args: { id: number }) => {

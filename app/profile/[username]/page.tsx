@@ -55,10 +55,15 @@ export default async function UserProfilePage() {
   }
 
   return (
-    <main className="hero p-2 mb-16 text-center pt-9">
+    <main className="contentSection p-2 mb-16 text-center pt-9">
       <div className="flex-col">
         <h1 className="mx-auto my-5 text-3xl font-bold">User Profile</h1>
         <p>You're logged in as {data.loggedInUser.username}</p>
+        <h2>your favourite combinations</h2>
+        <p>coming soon! </p>
+        <h2>your notes</h2>
+        <div>notes</div>
+        <p>coming soon! </p>
       </div>
     </main>
   );

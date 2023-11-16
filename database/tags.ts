@@ -25,3 +25,15 @@ export const getTagById = cache(async (id: number) => {
 
   return tag;
 });
+
+export const getTagTypes = cache(async () => {
+  const tagTypes = await sql<{ type: string }[]>`
+    SELECT
+      type
+    FROM
+      tags
+    GROUP BY
+      type
+  `;
+  return tagTypes;
+});

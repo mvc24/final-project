@@ -1,9 +1,8 @@
 'use client';
 import { CldImage } from 'next-cloudinary';
-import { MainIngredientProps } from '../../../util/types';
+import { Ingredient } from '../../../util/types';
 
-export default function Images(props: MainIngredientProps) {
-  const ingredient = props.props;
+export default function Images({ ingredient }: Ingredient) {
   return (
     <CldImage
       width="1200"

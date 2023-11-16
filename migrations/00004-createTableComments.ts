@@ -5,7 +5,8 @@ export async function up(sql: Sql) {
     CREATE TABLE
       comments (
         id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        user_id INTEGER NOT NULL REFERENCES users (id),
+        user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+        ingredient_id INTEGER NOT NULL REFERENCES ingredients (id),
         body text NOT NULL
       );
   `;

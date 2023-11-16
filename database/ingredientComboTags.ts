@@ -1,11 +1,6 @@
 import { cache } from 'react';
+import { ComboTags } from '../util/types';
 import { sql } from './connect';
-
-export type ComboTags = {
-  comboId: number;
-  type: string;
-  tagNames: string[] | null;
-};
 
 export const getIngredientComboTags = cache(async () => {
   const ingredientComboTags = await sql<ComboTags[]>`

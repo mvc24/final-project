@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.contentSection {
+  min-height: 86vh;
+  max-height: 86vh;
+}
 .hero {
   min-height: 86vh;
   max-height: 86vh;

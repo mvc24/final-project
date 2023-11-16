@@ -47,6 +47,18 @@ export const getUserByUsername = cache(async (username: string) => {
   return user;
 });
 
+export const getUserById = cache(async (id: number) => {
+  const [user] = await sql<User[]>`
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      id = ${id}
+  `;
+  return user;
+});
+
 export const getUserWithPasswordHashByUsername = cache(
   async (username: string) => {
     const [user] = await sql<User[]>`

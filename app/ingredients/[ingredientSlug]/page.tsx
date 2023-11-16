@@ -6,15 +6,17 @@ import {
 } from '../../../database/ingredientCombos';
 import { getMainIngredientsBySlug } from '../../../database/ingredients';
 import { getClient } from '../../../util/apolloClient';
-import { MainIngredientProps } from '../../../util/types';
+import { Ingredient, MainIngredientProps } from '../../../util/types';
+import DisplayComboTags from './ComboTags';
 import CreateCommentForm from './CommentForm';
+import CommentsFeed from './CommentsFeed';
 import Images from './Images';
 
 type Props = {
   params: {
     ingredientSlug: string;
   };
-  props: MainIngredientProps;
+  props: Ingredient;
 };
 
 export default async function IngredientPage(props: Props) {
@@ -60,16 +62,14 @@ export default async function IngredientPage(props: Props) {
     return ingredient.ingredientNames;
   });
 
-  // console.log('result: ', result);
-  // console.log('result: ', result);
-  // console.log('mainIngredients on ingredient page: ', mainIngredients);
-
   return (
     <div>
-      <Images props={mainIngredients} />
+      <Images ingredient={mainIngredients} />
       <h1>{mainIngredients.name}</h1>
       <h2>description</h2>
       <div>{mainIngredients.description}</div>
+      <br />
+      <br />
       <div>{mainIngredients.recipe}</div>
       <div>
         {result.map((combo) => {
@@ -89,6 +89,7 @@ export default async function IngredientPage(props: Props) {
             return (
               <div key={`combos-list-div-${combo.comboId}`}>
                 {ingredientString}
+                <DisplayComboTags comboId={combo.comboId} />
               </div>
             );
           }
@@ -96,7 +97,11 @@ export default async function IngredientPage(props: Props) {
         })}
       </div>
       <div>
-        <CreateCommentForm userId={data.loggedInUser.id} />
+        <CreateCommentForm
+          userId={data.loggedInUser.id}
+          slug={props.params.ingredientSlug}
+        />
+        <CommentsFeed slug={props.params.ingredientSlug} />
       </div>
     </div>
   );

@@ -25,17 +25,26 @@ export type Ingredient = {
   recipe: string | null;
 };
 
+export type ComboTags = {
+  comboId: number;
+  type: string;
+  tagNames: string[] | null;
+};
+
 export type Comment = {
   id: number;
   userId: number;
   username: string;
   body: string;
+  ingredientId: number;
+  slug: string | null;
 };
 
 export type NewComment = {
   id: number;
   userId: number;
   body: string;
+  ingredientId: number;
 };
 
 export type User = {
