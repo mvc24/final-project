@@ -2,7 +2,14 @@
 import { CldImage } from 'next-cloudinary';
 import { Ingredient } from '../../../util/types';
 
-export default function Images({ ingredient }: Ingredient) {
+type Props = {
+  ingredient: Ingredient;
+};
+
+export default function Images({ ingredient }: Props) {
+  if (!ingredient.image) {
+    return 'not found';
+  }
   return (
     <CldImage
       width="1200"

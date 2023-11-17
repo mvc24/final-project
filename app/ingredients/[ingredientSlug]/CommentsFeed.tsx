@@ -1,9 +1,11 @@
-import { getComments } from '../../../database/comments';
+import { getCommentsByIngredientSlug } from '../../../database/comments';
 
-export default async function CommentsFeed() {
-  const showComments = await getComments();
+type Props = {
+  slug: string;
+};
 
-  // here I need to set the get comments function again
+export default async function CommentsFeed({ slug }: Props) {
+  const showComments = await getCommentsByIngredientSlug(slug);
 
   console.log('data on comments feed: ', await showComments);
   return (

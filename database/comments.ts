@@ -97,10 +97,10 @@ export const createComment = cache(
 );
 
 export const deleteComment = cache(async (id: number) => {
-  const [comment] = await sql<Comment[]>`
+  const [comment] = await sql<NewComment[]>`
     DELETE FROM comments
     WHERE
-      id = ${id}
+      id = ${id} RETURNING *
   `;
   return comment;
 });

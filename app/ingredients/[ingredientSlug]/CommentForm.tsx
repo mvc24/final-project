@@ -37,7 +37,7 @@ export default function CreateCommentForm({
   const [body, setBody] = useState('');
   const [onError, setOnError] = useState('');
 
-  const { refetch } = useSuspenseQuery<Comment>(getComments);
+  const { data, refetch } = useSuspenseQuery<Comment>(getComments);
 
   const [createCommentHandler] = useMutation(createCommentMutation, {
     variables: {

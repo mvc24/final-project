@@ -50,8 +50,8 @@ export const getMainIngredientsById = cache(async (id: number) => {
   return mainIngredientsById;
 });
 
-export const getMainIngredientsBySlug = cache(async (slug: string) => {
-  const [mainIngredientsBySlug] = await sql<Ingredient[]>`
+export const getMainIngredientBySlug = cache(async (slug: string) => {
+  const [mainIngredientBySlug] = await sql<Ingredient[]>`
     SELECT
       *
     FROM
@@ -59,5 +59,5 @@ export const getMainIngredientsBySlug = cache(async (slug: string) => {
     WHERE
       slug = ${slug}
   `;
-  return mainIngredientsBySlug;
+  return mainIngredientBySlug;
 });
