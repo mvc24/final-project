@@ -11,14 +11,15 @@ export default function Images({ ingredient }: Props) {
     return 'not found';
   }
   return (
-    <CldImage
-      width="1200"
-      height="675"
-      src={ingredient.image}
-      sizes="100vw"
-      crop="fill"
-      gravity="auto"
-      alt={ingredient.name}
-    />
+    <div className="rounded-2xl overflow-hidden">
+      <CldImage
+        width="400"
+        height="400"
+        src={ingredient.image}
+        sizes="100vw"
+        alt={ingredient.name}
+        className="w-full h-auto"
+      />
+    </div>
   );
 }

@@ -17,9 +17,9 @@ import {
 import {
   getIngredientByID,
   getIngredients,
+  getMainIngredientBySlug,
   getMainIngredients,
   getMainIngredientsById,
-  getMainIngredientsBySlug,
 } from '../../../database/ingredients';
 import {
   createSession,
@@ -195,7 +195,7 @@ const resolvers = {
       return await getMainIngredientsById(args.id);
     },
     mainIngredientBySlug: async (parent: null, args: { name: string }) => {
-      return await getMainIngredientsBySlug(args.name);
+      return await getMainIngredientBySlug(args.name);
     },
 
     // comment queries

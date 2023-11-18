@@ -56,22 +56,22 @@ export default function CreateCommentForm({
     },
   });
   return (
-    <div className="bg-white rounded shadow p-4 max-w-lg">
+    <div className="">
       <div>
-        <div className="mb-4">
+        <div className="">
           <textarea
             title="body"
             onChange={(event) => setBody(event.currentTarget.value)}
             placeholder="Leave a comment!"
-            className="mt-1 p-2 w-full border rounded-md"
+            className="textarea textarea-bordered"
             required
           />
         </div>
 
-        <div className="mt-6">
+        <div className="">
           <button
             onClick={async () => await createCommentHandler()}
-            className="btn bg-main-200 text-main-900 p-4 rounded-full hover:bg-main-400"
+            className="btn bg-main-200 text-main-900 p-4 rounded-full hover:bg-main-400 lowercase"
           >
             Comment
           </button>

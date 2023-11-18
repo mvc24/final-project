@@ -7,11 +7,11 @@ type Props = {
 export default async function CommentsFeed({ slug }: Props) {
   const showComments = await getCommentsByIngredientSlug(slug);
 
-  console.log('data on comments feed: ', await showComments);
+  console.log('data on comments feed: ', showComments);
   return (
     <div>
-      <div className="container bg-white rounded shadow p-4">
-        <h2>comments</h2>
+      <div className="container m-auto">
+        <h2 className="font-bold text-xl/loose">comments</h2>
         {showComments.map((comment) => {
           return (
             <div key={`comment-${comment.id}`}>
