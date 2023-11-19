@@ -10,19 +10,21 @@ export default async function CommentsFeed({ slug }: Props) {
   console.log('data on comments feed: ', showComments);
   return (
     <div>
-      <div className="container m-auto">
-        <h2 className="font-bold text-decoration-600 text-2xl/loose">
-          comments
-        </h2>
-        {showComments.map((comment) => {
-          return (
-            <div key={`comment-${comment.id}`}>
-              <p className="text-sm">{comment.username}</p>
-              <p>{comment.body}</p>
-            </div>
-          );
-        })}
-      </div>
+      <h2 className="font-bold text-decoration-600 mx-auto text-center text-2xl/loose">
+        comments
+      </h2>
+      {showComments.map((comment) => {
+        return (
+          <div className="chat chat-start" key={`comment-${comment.id}`}>
+            <p className="chat-header text-sm font-light text-main-800 indent-2 mb-2">
+              {comment.username}
+            </p>
+            <p className="chat-bubble max-w-max bg-main-100 text-main-900 drop-shadow-lg">
+              {comment.body}
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 }

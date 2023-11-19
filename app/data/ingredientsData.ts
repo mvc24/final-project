@@ -33,7 +33,7 @@ export const ingredients: Ingredient[] = [
     id: 3,
     name: 'chickpeas',
     slug: 'chickpeas',
-    image: 'sage/beans_gbaxci',
+    image: 'sage/chickpeas_rkk6wo',
     description: `Chickpeas, also known as garbanzo beans, are versatile legumes that can be enjoyed in a variety of dishes. They have a creamy texture and a nutty flavour that adds depth to any recipe.\n
 
     Whether you prefer to use canned or cooked chickpeas, they are a great source of protein and can be a fantastic addition to vegetarian and vegan meals. You can toss them in salads, roast them for a crunchy snack, or blend them into creamy hummus.\n

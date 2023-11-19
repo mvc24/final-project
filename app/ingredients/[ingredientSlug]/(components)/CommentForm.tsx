@@ -56,27 +56,28 @@ export default function CreateCommentForm({
     },
   });
   return (
-    <div className="">
-      <div>
-        <div className="">
-          <textarea
-            title="body"
-            onChange={(event) => setBody(event.currentTarget.value)}
-            placeholder="Leave a comment!"
-            className="textarea textarea-bordered"
-            required
-          />
-        </div>
-
-        <div className="">
-          <button
-            onClick={async () => await createCommentHandler()}
-            className="btn bg-main-200 text-main-900 p-4 rounded-full hover:bg-main-400 lowercase"
-          >
-            Comment
-          </button>
-        </div>
+    <form
+      onSubmit={async (event) => {
+        event.preventDefault();
+        await createCommentHandler();
+      }}
+      className="form-control"
+    >
+      <div className="label">
+        <textarea
+          title="body"
+          onChange={(event) => setBody(event.currentTarget.value)}
+          placeholder="Leave a comment!"
+          className="textarea rounded-3xl border-main-400 "
+          required
+        />
       </div>
-    </div>
+
+      <div className="mx-auto">
+        <button className="btn bg-main-200 text-main-900 text-md tracking-wide align-middle rounded-full hover:bg-main-400 lowercase">
+          Comment
+        </button>
+      </div>
+    </form>
   );
 }

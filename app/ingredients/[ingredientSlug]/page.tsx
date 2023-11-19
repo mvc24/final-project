@@ -65,7 +65,7 @@ export default async function IngredientPage(props: Props) {
 
   return (
     <div className="container mx-auto p-0">
-      <div className="text-sm breadcrumbs">
+      <div className="text-sm breadcrumbs mt-4">
         <ul>
           <li>
             <Link
@@ -85,7 +85,7 @@ export default async function IngredientPage(props: Props) {
           </li>
         </ul>
       </div>
-      <div className="grid grid-cols-6 gap-6 gap-x-12 p-4 ">
+      <div className="grid grid-cols-6 gap-6 gap-x-12 p-4">
         <h1 className="col-span-6 h-8 font-extrabold tracking-wide text-decoration-600 text-4xl/loose mx-auto ">
           {mainIngredient.name}
         </h1>
@@ -122,10 +122,10 @@ export default async function IngredientPage(props: Props) {
                   className="drop-shadow-md"
                   key={`combos-list-div-${combo.comboId}`}
                 >
-                  <div className="text-center text-l pt-3 pb-1 px-5 bg-main-200 font-medium rounded-t-xl">
+                  <div className="text-center text-l pt-4 pb-2 px-4 bg-main-200 font-medium rounded-t-xl">
                     {ingredientString}
                   </div>
-                  <div className="text-center bg-main-100 font-light pb-3 pt-1 mb-6 rounded-b-xl">
+                  <div className="text-center bg-main-100 font-light pb-4 px-4 pt-2 mb-6 rounded-b-xl">
                     <DisplayComboTags
                       comboId={combo.comboId}
                       type=""
