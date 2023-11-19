@@ -1,5 +1,5 @@
-import { getIngredientComboTags } from '../../../database/ingredientComboTags';
-import { ComboTags } from '../../../util/types';
+import { getIngredientComboTags } from '../../../../database/ingredientComboTags';
+import { ComboTags } from '../../../../util/types';
 
 type ComboTag = {
   comboId: number;
@@ -25,9 +25,9 @@ export default async function DisplayComboTags(props: ComboTags) {
   console.log('groupedTags: ', groupedTags);
 
   return (
-    <div>
+    <div className="">
       {Object.keys(groupedTags).map((type, index) => (
-        <span key={`type-${type}`}>
+        <span className="" key={`type-${type}`}>
           {index > 0 ? ' | ' : ''}
           {groupedTags[type]?.join(', ')}
         </span>

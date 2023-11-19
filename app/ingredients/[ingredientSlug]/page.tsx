@@ -7,10 +7,12 @@ import {
 } from '../../../database/ingredientCombos';
 import { getMainIngredientBySlug } from '../../../database/ingredients';
 import { getClient } from '../../../util/apolloClient';
-import DisplayComboTags from './ComboTags';
-import CreateCommentForm from './CommentForm';
-import CommentsFeed from './CommentsFeed';
-import Images from './Images';
+import DisplayComboTags from './(components)/ComboTags';
+import CreateCommentForm from './(components)/CommentForm';
+import CommentsFeed from './(components)/CommentsFeed';
+import Description from './(components)/Description';
+import Images from './(components)/Images';
+import Recipe from './(components)/Recipe';
 
 type Props = {
   params: {
@@ -62,7 +64,7 @@ export default async function IngredientPage(props: Props) {
   });
 
   return (
-    <div className="container mx-auto p-2">
+    <div className="container mx-auto p-0">
       <div className="text-sm breadcrumbs">
         <ul>
           <li>
@@ -83,21 +85,24 @@ export default async function IngredientPage(props: Props) {
           </li>
         </ul>
       </div>
-      <div className="grid grid-cols-6 gap-8 p-4 ">
-        <div className="col-start-1 col-end-4">
-          <div className="">
-            <h1 className="font-black text-3xl/loose ">
-              {mainIngredient.name}
-            </h1>
-
-            <div>{mainIngredient.description}</div>
-          </div>
-        </div>
-        <div className="col-start-4 col-end-7">
+      <div className="grid grid-cols-6 gap-6 gap-x-12 p-4 ">
+        <h1 className="col-span-6 h-8 font-extrabold tracking-wide text-decoration-600 text-4xl/loose mx-auto ">
+          {mainIngredient.name}
+        </h1>
+        <div className="divider grid col-span-full h-0 md:col-span-4 md:col-start-2" />
+        <div className="col-span-6">
           <Images ingredient={mainIngredient} />
         </div>
-        <div className="col-span-3 col-start-1">
-          <h2 className="font-bold text-xl/loose">combinations</h2>
+        <div className="col-span-6 mx-auto ">
+          <div className="text-md font-light md:columns-2 md:gap-8">
+            <Description ingredient={mainIngredient} />
+          </div>
+        </div>
+        <div className="divider grid col-span-full h-0 md:col-span-4 md:col-start-2" />
+        <div className="col-span-6 md:col-span-3 col-start-1">
+          <h2 className="font-bold mx-auto mb-2 text-center text-decoration-600 text-2xl/loose">
+            combinations
+          </h2>
           {result.map((combo) => {
             const ingredients = combo.ingredientNames || [];
             const matchedIngredients = ingredients.filter(
@@ -113,9 +118,14 @@ export default async function IngredientPage(props: Props) {
               const ingredientString = ingredients.join(' + ');
               console.log('ingredientString: ', ingredientString);
               return (
-                <div key={`combos-list-div-${combo.comboId}`}>
-                  <div>{ingredientString}</div>
-                  <div>
+                <div
+                  className="drop-shadow-md"
+                  key={`combos-list-div-${combo.comboId}`}
+                >
+                  <div className="text-center text-l pt-3 pb-1 px-5 bg-main-200 font-medium rounded-t-xl">
+                    {ingredientString}
+                  </div>
+                  <div className="text-center bg-main-100 font-light pb-3 pt-1 mb-6 rounded-b-xl">
                     <DisplayComboTags
                       comboId={combo.comboId}
                       type=""
@@ -128,9 +138,15 @@ export default async function IngredientPage(props: Props) {
             return null; // If there's no matching ingredient, don't render anything
           })}
         </div>
-        <div className="col-span-3 col-start-4">
-          <h2 className="font-bold text-xl/loose">recipe</h2>
-          <div className="">{mainIngredient.recipe}</div>
+        <div className="col-span-6 md:col-span-3 font-light md:col-start-4">
+          <h2 className="font-bold text-center text-decoration-600 text-2xl/loose">
+            recipe
+          </h2>
+          <Recipe ingredient={mainIngredient} />
+        </div>
+        <div className="divider grid col-span-full h-0 md:col-span-4 md:col-start-2" />
+        <div className="col-start-2 col-span-4 mx-auto">
+          <CommentsFeed slug={props.params.ingredientSlug} />
         </div>
         <div className="col-start-2 col-span-4 mx-auto">
           {!data.loggedInUser ? (
@@ -145,7 +161,6 @@ export default async function IngredientPage(props: Props) {
               ingredientId={mainIngredient.id}
             />
           )}
-          <CommentsFeed slug={props.params.ingredientSlug} />
         </div>
       </div>
     </div>

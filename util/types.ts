@@ -21,8 +21,8 @@ export type Ingredient = {
   name: string;
   slug: string | null;
   image: string | null;
-  description: string | null;
-  recipe: string | null;
+  description: string | string[] | null;
+  recipe: string | string[] | null;
 };
 
 export type ComboTags = {

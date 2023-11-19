@@ -1,6 +1,6 @@
 'use client';
 import { CldImage } from 'next-cloudinary';
-import { MainIngredientProps } from '../../util/types';
+import { MainIngredientProps } from '../../../../util/types';
 
 export default function Card(props: MainIngredientProps) {
   // console.log('props: ', props);

@@ -1,4 +1,4 @@
-import { getCommentsByIngredientSlug } from '../../../database/comments';
+import { getCommentsByIngredientSlug } from '../../../../database/comments';
 
 type Props = {
   slug: string;
@@ -11,7 +11,9 @@ export default async function CommentsFeed({ slug }: Props) {
   return (
     <div>
       <div className="container m-auto">
-        <h2 className="font-bold text-xl/loose">comments</h2>
+        <h2 className="font-bold text-decoration-600 text-2xl/loose">
+          comments
+        </h2>
         {showComments.map((comment) => {
           return (
             <div key={`comment-${comment.id}`}>

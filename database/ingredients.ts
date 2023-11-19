@@ -59,5 +59,6 @@ export const getMainIngredientBySlug = cache(async (slug: string) => {
     WHERE
       slug = ${slug}
   `;
+
   return mainIngredientBySlug;
 });
