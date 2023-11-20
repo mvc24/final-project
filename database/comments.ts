@@ -53,6 +53,8 @@ export const getCommentsByIngredientId = cache(async (ingredientId: number) => {
       INNER JOIN ingredients ON ingredients.id = comments.ingredient_id
     WHERE
       ingredient_id = ${ingredientId}
+    ORDER BY
+      comments.id DESC
   `;
   return comments;
 });
@@ -72,6 +74,8 @@ export const getCommentsByIngredientSlug = cache(async (slug: string) => {
       INNER JOIN ingredients ON ingredients.id = comments.ingredient_id
     WHERE
       slug = ${slug}
+    ORDER BY
+      comments.id DESC
   `;
   return comments;
 });

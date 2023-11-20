@@ -4,16 +4,15 @@ export default function HowToPage() {
   return (
     <div className="container prose p-6 w-4/6">
       <h1 className="prose font-bold text-center tracking-wide text-decoration-600 text-2xl mx-auto lowercase">
-        Ingredient Combinations to Elevate Your Cooking
+        discover delicious combinations
       </h1>
       <div>
         <p className="prose font-light">
-          When it comes to spicing up my cooking, I rely on a hidden trove of
-          ideas sourced from the "Vegetarian Flavor Bible" by Karen Page and
-          Andrew Dornenburg. At first glance it only looks like a huge
-          collection of lists, but it honestly is my go-to book when I feel a
-          bit stuck in my cooking or I need a new idea for something I have in
-          my fridge.
+          When it comes finding inspiration, I rely on a hidden trove of ideas
+          sourced from the "Vegetarian Flavor Bible" by Karen Page and Andrew
+          Dornenburg. At first glance it only looks like a huge collection of
+          lists, but it honestly is my go-to book when I feel a bit stuck in my
+          cooking or I need a new idea for something I have in my fridge.
         </p>
 
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">

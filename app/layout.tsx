@@ -89,7 +89,7 @@ export default async function RootLayout({
                   </li>
                   <li>
                     <Link
-                      className="transition hover:text-decoration-700"
+                      className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                       href="/about"
                     >
                       about
