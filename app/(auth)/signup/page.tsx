@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { getValidSessionsBaToken } from '../../../database/sessions';
-import SignupForm from './SignupForm';
+import { getValidSessionByToken } from '../../../database/sessions';
+import SignUpForm from './SignUpForm';
 
-export default async function SignupPage() {
+export default async function SignUpPage() {
   // task: add redirect to home if user is logged in
 
   // 1. check if the sessionToken cookie exists
@@ -14,13 +14,13 @@ export default async function SignupPage() {
 
   const session =
     sessionTokenCookie &&
-    (await getValidSessionsBaToken(sessionTokenCookie.value));
+    (await getValidSessionByToken(sessionTokenCookie.value));
 
   if (session) redirect('/');
 
   return (
     <div>
-      <SignupForm />
+      <SignUpForm />
     </div>
   );
 }

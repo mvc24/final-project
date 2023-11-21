@@ -1,13 +1,16 @@
 import './globals.css';
+import { gql } from '@apollo/client';
 import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactNode } from 'react';
-import { getUserBySessionToken } from '../database/users';
+import React from 'react';
 import sageLogo from '../public/images/sageLogo.svg';
+import { getClient } from '../util/apolloClient';
 import LogoutButton from './(auth)/logout/LogoutButton';
+import { ApolloClientProvider } from './ApolloClientProvider';
+import IngredientLinks from './IngredientLinks';
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -16,21 +19,29 @@ export const metadata: Metadata = {
   description: 'inspiration for creative cooking',
 };
 
-type Props = {
-  children: ReactNode;
-};
-
-export default async function RootLayout(props: Props) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   // display username in the navigation and login & register buttons depending on user status
-
   const cookieStore = cookies();
   const sessionToken = cookieStore.get('sessionToken');
 
-  const user = !sessionToken?.value
-    ? undefined
-    : await getUserBySessionToken(sessionToken.value);
-
-  // get logged in user, check repo
+  const { data } = await getClient().query({
+    query: gql`
+      query LoggedInUser($token: String!) {
+        loggedInUser(token: $token) {
+          id
+          username
+        }
+      }
+    `,
+    variables: {
+      token: sessionToken?.value || '',
+    },
+  });
+  console.log('data on layout: ', data);
 
   return (
     <html lang="en" className="text-main-900">
@@ -38,9 +49,11 @@ export default async function RootLayout(props: Props) {
         <header className="bg-neutral-100">
           <nav className="navbar bg-neutral-100 text-main-700">
             <div className="navbar-start">
-              <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
-              <div className="dropdown">
-                <div className="btn btn-ghost lg:hidden">
+              <Link href="/">
+                <Image src={sageLogo} alt="" className="h-12 w-auto px-4" />
+              </Link>
+              <button className="dropdown dropdown-hover">
+                <div className="btn btn-ghost rounded-full lg:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -56,7 +69,7 @@ export default async function RootLayout(props: Props) {
                     />
                   </svg>
                 </div>
-                <ul className="menu menu-lg dropdown-content mt-3 z-[1] p-2 shadow bg-neutral-100 rounded-box w-52">
+                <ul className="menu menu-sm dropdown-content transition ease-in-out mt-1 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                   <li>
                     <Link
                       className="transition hover:text-decoration-700"
@@ -64,6 +77,7 @@ export default async function RootLayout(props: Props) {
                     >
                       the ingredients
                     </Link>
+                    <IngredientLinks ingredients={[]} />
                   </li>
                   <li>
                     <Link
@@ -75,20 +89,20 @@ export default async function RootLayout(props: Props) {
                   </li>
                   <li>
                     <Link
-                      className="transition hover:text-decoration-700"
+                      className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                       href="/about"
                     >
                       about
                     </Link>
                   </li>
                 </ul>
-              </div>
+              </button>
             </div>
             <div className="navbar-center hidden lg:flex">
               <ul className="menu menu-horizontal px-1 text-lg">
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/ingredients"
                   >
                     the ingredients
@@ -96,7 +110,7 @@ export default async function RootLayout(props: Props) {
                 </li>
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/howTo"
                   >
                     how to use this page
@@ -104,7 +118,7 @@ export default async function RootLayout(props: Props) {
                 </li>
                 <li>
                   <Link
-                    className="transition hover:text-decoration-700 rounded-full"
+                    className="transition hover:text-decoration-700 hover:bg-decoration-50 rounded-full"
                     href="/about"
                   >
                     about
@@ -113,31 +127,35 @@ export default async function RootLayout(props: Props) {
               </ul>
             </div>
             <div className="navbar-end gap-4">
-              {user ? (
-                <>
-                  <div>{user.username}</div>
+              {data.loggedInUser ? (
+                <div className="inline-flex gap-4">
+                  <Link href={`/profile/${data.loggedInUser.username}`}>
+                    <span className="btn px-5 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg">
+                      {data.loggedInUser?.username}
+                    </span>
+                  </Link>
                   <LogoutButton />
-                </>
+                </div>
               ) : (
-                <>
+                <div className="inline-flex gap-4">
                   <Link
                     href="/login"
-                    className="btn px-6 rounded-full border bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-50 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
+                    className="btn px-7 rounded-full border-0 bg-main-700 text-main-50 hover:border-t-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 transform-none lowercase text-lg"
                   >
                     login
                   </Link>
                   <Link
-                    className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-0 lowercase text-lg"
+                    className="btn px-5 rounded-full btn-outline border-t-main-700 text-main-700 hover:bg-main-200 hover:text-main-700 hover:border-main-200 lowercase text-lg"
                     href="/signup"
                   >
                     sign up
                   </Link>
-                </>
+                </div>
               )}
             </div>
           </nav>
         </header>
-        {props.children}
+        <ApolloClientProvider>{children}</ApolloClientProvider>
         <footer className="footer items-center p-4 bg-neutral-100 text-m text-main-700">
           <aside className="items-center grid-flow-col">
             <p>Copyright © 2023 - All right reserved</p>

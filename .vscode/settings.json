@@ -1,5 +1,30 @@
 {
   "files.associations": {
     "*.css": "tailwindcss"
-  }
+  },
+  "cSpell.words": [
+    "Caponata",
+    "caramelisation",
+    "caramelise",
+    "caramelised",
+    "cavolo",
+    "ceci",
+    "choy",
+    "colours",
+    "criss",
+    "favourite",
+    "favourites",
+    "flavourful",
+    "fraiche",
+    "ghanoush",
+    "harissa",
+    "howto",
+    "howtos",
+    "manouri",
+    "portobellos",
+    "realised",
+    "umami"
+  ],
+  "terminal.integrated.accessibleViewPreserveCursorPosition": false,
+  "terminal.integrated.persistentSessionReviveProcess": "onExit"
 }

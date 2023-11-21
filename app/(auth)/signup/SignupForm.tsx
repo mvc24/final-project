@@ -1,57 +1,104 @@
 'use client';
-
+import { gql, useMutation } from '@apollo/client';
+import { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { RegisterResponseBodyPost } from '../../../api/(auth)/signup/route';
+import React, { useState } from 'react';
+import { getSafeReturnToPath } from '../../../util/validation';
 
-export default function SignupForm() {
+type Props = { returnTo?: string | string[] };
+
+const signUpMutation = gql`
+  mutation CreateUser($username: String!, $email: String!, $password: String!) {
+    createUser(username: $username, email: $email, password: $password) {
+      id
+      username
+      email
+      passwordHash
+    }
+  }
+`;
+
+export default function SignUpForm(props: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [email, setEmail] = useState('');
+  const [onError, setOnError] = useState('');
   const router = useRouter();
 
-  async function handleRegister(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const [signUpHandler] = useMutation(signUpMutation, {
+    variables: {
+      username,
+      email,
+      password,
+    },
 
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+    onError: (error) => {
+      setOnError(error.message);
+    },
 
-    const data: RegisterResponseBodyPost = await response.json();
+    onCompleted: () => {
+      router.refresh();
+      router.push(
+        getSafeReturnToPath(props.returnTo) ||
+          (`/profile/${username}` as Route),
+      );
+    },
+  });
 
-    if ('errors' in data) {
-      setErrors(data.errors);
-      return;
-    }
-
-    router.push(`/profile/${data.user.username}`);
-    router.refresh();
-  }
+  console.log('SignUp mutation: ', signUpMutation);
 
   return (
-    <form onSubmit={async (event) => await handleRegister(event)}>
-      <label>
-        Username
-        <input onChange={(event) => setUsername(event.currentTarget.value)} />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          onChange={(event) => setPassword(event.currentTarget.value)}
-        />
-      </label>
-      <button>Register</button>
-
-      {errors.map((error) => (
-        <div className="error" key={`error-${error.message}`}>
-          Error: {error.message}
-        </div>
-      ))}
-    </form>
+    <div className="container contentSection">
+      <div className="mx-auto mt-12 py-8 px-8">
+        <h1 className="mx-auto text-center text-2xl text-decoration-600 font-bold">
+          sign up
+        </h1>
+        <form
+          onSubmit={async (event) => {
+            event.preventDefault();
+            await signUpHandler();
+          }}
+          className="form-control mx-auto justify-center items-center w-full max-w-xs"
+        >
+          <div>
+            <label id="username">
+              username
+              <input
+                className="input border-decoration-600/50 shadow-decoration-200/25 shadow-inner rounded-full w-full max-w-xs"
+                value={username}
+                onChange={(event) => {
+                  setUsername(event.currentTarget.value);
+                }}
+              />
+            </label>
+            <br />
+            <label id="email">
+              email
+              <input
+                type="email"
+                className="input border-decoration-600/50 shadow-decoration-200/25 shadow-inner rounded-full w-full max-w-xs"
+                value={email}
+                onChange={(event) => setEmail(event.currentTarget.value)}
+              />
+            </label>
+            <label id="password">
+              password
+              <input
+                type="password"
+                className="input border-decoration-600/50 shadow-decoration-200/25 shadow-inner rounded-full w-full max-w-xs"
+                value={password}
+                onChange={(event) => {
+                  setPassword(event.currentTarget.value);
+                }}
+              />
+            </label>
+            <button className="mt-4 mx-auto btn px-5 rounded-full btn-outline border-t-decoration-700 text-decoration-700 hover:bg-decoration-100 hover:text-decoration-700 hover:border-decoration-100 lowercase text-lg">
+              sign up
+            </button>
+          </div>
+          <div className="error">{onError}</div>
+        </form>
+      </div>
+    </div>
   );
 }

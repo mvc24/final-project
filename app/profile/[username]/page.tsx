@@ -1,10 +1,70 @@
-// this is a public profile page, let's think about whether I want to have this
+import { gql } from '@apollo/client';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { getClient } from '../../../util/apolloClient';
 
-export default function UserProfilePage() {
+export async function generateMetadata() {
+  const sessionToken = cookies().get('sessionToken');
+
+  const { data } = await getClient().query({
+    query: gql`
+      query LoggedInUser($token: String!) {
+        loggedInUser(token: $token) {
+          id
+          username
+        }
+      }
+    `,
+    variables: {
+      token: sessionToken?.value || '',
+    },
+  });
+
+  if (data && data.loggedInUser && data.loggedInUser.username) {
+    return {
+      title: data.loggedInUser.username,
+      description: `${data.loggedInUser.username}'s user profile`,
+    };
+  }
+  return {
+    title: 'Profile',
+    description: `User profile`,
+  };
+}
+
+export default async function UserProfilePage() {
+  const sessionToken = cookies().get('sessionToken');
+
+  const { data } = await getClient().query({
+    query: gql`
+      query LoggedInUser($token: String!) {
+        loggedInUser(token: $token) {
+          id
+          username
+        }
+      }
+    `,
+    variables: {
+      token: sessionToken?.value || '',
+    },
+  });
+  console.log('data on user profile page: ', data.loggedInUser);
+
+  if (!data.loggedInUser) {
+    redirect('/login');
+  }
+
   return (
-    <div>
-      <div>profile</div>
-      <div>page</div>
-    </div>
+    <main className="contentSection p-2 mb-16 text-center pt-9">
+      <div className="flex-col">
+        <h1 className="mx-auto my-5 text-3xl font-bold">User Profile</h1>
+        <p>You're logged in as {data.loggedInUser.username}</p>
+        <h2>your favourite combinations</h2>
+        <p>coming soon! </p>
+        <h2>your notes</h2>
+        <div>notes</div>
+        <p>coming soon! </p>
+      </div>
+    </main>
   );
 }

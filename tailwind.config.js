@@ -9,6 +9,17 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
+    },
+
     colors: {
       main: {
         50: '#F2F7F5',
@@ -62,5 +73,11 @@ module.exports = {
     },
   },
   daisyui: {},
-  plugins: [require('@tailwindcss/typography'), require('daisyui')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('daisyui'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/container-queries'),
+    require('tw-elements/dist/plugin'),
+  ],
 };
