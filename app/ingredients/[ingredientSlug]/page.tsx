@@ -85,12 +85,12 @@ export default async function IngredientPage(props: Props) {
           </li>
         </ul>
       </div>
-      <div className="grid grid-cols-6 gap-6 gap-x-12 p-4">
+      <div className="grid grid-cols-6 gap-6 gap-x-12 p-4 lg:mx-24">
         <h1 className="col-span-6 h-8 font-extrabold tracking-wide text-decoration-600 text-4xl/loose mx-auto ">
           {mainIngredient.name}
         </h1>
         <div className="divider grid col-span-full h-0 md:col-span-4 md:col-start-2" />
-        <div className="col-span-6">
+        <div className="col-span-6 lg:col-span-4 lg:col-start-2">
           <Images ingredient={mainIngredient} />
         </div>
         <div className="col-span-6 mx-auto ">

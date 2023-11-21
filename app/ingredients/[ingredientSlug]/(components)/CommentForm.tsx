@@ -1,6 +1,8 @@
 'use client';
 
 import { gql, useMutation, useSuspenseQuery } from '@apollo/client';
+import { useRouter } from 'next/navigation';
+import { Router } from 'next/router';
 import { useState } from 'react';
 import { Comment } from '../../../../util/types';
 
@@ -36,6 +38,7 @@ export default function CreateCommentForm({
 }) {
   const [body, setBody] = useState('');
   const [onError, setOnError] = useState('');
+  const router = useRouter();
 
   const { data, refetch } = useSuspenseQuery<Comment>(getComments);
 
@@ -52,7 +55,7 @@ export default function CreateCommentForm({
     onCompleted: async () => {
       setOnError('');
       setBody('');
-      await refetch();
+      await router.refresh();
     },
   });
   return (
@@ -66,6 +69,7 @@ export default function CreateCommentForm({
       <div className="label">
         <textarea
           title="body"
+          value={body}
           onChange={(event) => setBody(event.currentTarget.value)}
           placeholder="Leave a comment!"
           className="textarea rounded-3xl border-main-400 "
