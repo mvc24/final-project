@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 export default function HowToPage() {
   return (
     <div className="container prose p-6 w-4/6">
@@ -138,28 +136,28 @@ export default function HowToPage() {
 
         <ul>
           <li>
-            <Link
+            <a
               className="no-underline	text-main-600"
               href="https//www.theguardian.com/lifeandstyle/series/nigelslaterrecipe"
             >
               The Guardian Observer Magazine
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
+            <a
               className="no-underline	text-main-600"
               href="https//www.bbcgoodfood.com/"
             >
               BBC Good Food
-            </Link>
+            </a>
           </li>
           <li>
-            <Link
+            <a
               className="no-underline	text-main-600"
               href="https//www.seriouseats.com/"
             >
               Serious Eats
-            </Link>
+            </a>
           </li>
         </ul>
         <p className="prose font-light">

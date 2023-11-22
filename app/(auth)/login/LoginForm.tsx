@@ -3,7 +3,7 @@
 import { gql, useMutation } from '@apollo/client';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { getSafeReturnToPath } from '../../../util/validation';
 
 type Props = { returnTo?: string | string[] };
