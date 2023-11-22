@@ -40,6 +40,7 @@ export default function CreateCommentForm({
   const router = useRouter();
 
   const { data, refetch } = useSuspenseQuery<Comment>(getComments);
+  console.log(data, refetch);
 
   const [createCommentHandler] = useMutation(createCommentMutation, {
     variables: {

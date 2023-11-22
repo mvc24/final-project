@@ -1,7 +1,6 @@
 import 'server-only';
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { Ingredient } from '../util/types';
 
 export const getIngredients = cache(async () => {
   const ingredients = await sql<
