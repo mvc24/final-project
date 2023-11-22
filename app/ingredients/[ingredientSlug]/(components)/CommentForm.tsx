@@ -2,7 +2,6 @@
 
 import { gql, useMutation, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
 import { useState } from 'react';
 import { Comment } from '../../../../util/types';
 
@@ -41,6 +40,7 @@ export default function CreateCommentForm({
   const router = useRouter();
 
   const { data, refetch } = useSuspenseQuery<Comment>(getComments);
+  console.log(data, refetch);
 
   const [createCommentHandler] = useMutation(createCommentMutation, {
     variables: {

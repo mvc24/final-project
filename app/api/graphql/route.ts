@@ -47,10 +47,6 @@ type CreateUser = {
   password: string;
 };
 
-type Token = {
-  token: string;
-};
-
 type UserContext = {
   isUserLoggedIn: boolean;
   req: { cookies: { sessionToken: string } };

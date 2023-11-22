@@ -1,10 +1,18 @@
 import 'server-only';
 import { cache } from 'react';
 import { sql } from '../database/connect';
-import { Ingredient } from '../util/types';
 
 export const getIngredients = cache(async () => {
-  const ingredients = await sql<Ingredient[]>`
+  const ingredients = await sql<
+    {
+      id: number;
+      name: string;
+      slug: string | null;
+      image: string | null;
+      description: string | null;
+      recipe: string | null;
+    }[]
+  >`
     SELECT
       *
     FROM
@@ -14,7 +22,16 @@ export const getIngredients = cache(async () => {
 });
 
 export const getIngredientByID = cache(async (id: number) => {
-  const [ingredient] = await sql<Ingredient[]>`
+  const [ingredient] = await sql<
+    {
+      id: number;
+      name: string;
+      slug: string | null;
+      image: string | null;
+      description: string | null;
+      recipe: string | null;
+    }[]
+  >`
     SELECT
       *
     FROM
@@ -26,7 +43,16 @@ export const getIngredientByID = cache(async (id: number) => {
 });
 
 export const getMainIngredients = cache(async () => {
-  const mainIngredients = await sql<Ingredient[]>`
+  const mainIngredients = await sql<
+    {
+      id: number;
+      name: string;
+      slug: string | null;
+      image: string | null;
+      description: string | null;
+      recipe: string | null;
+    }[]
+  >`
     SELECT
       *
     FROM
@@ -38,7 +64,16 @@ export const getMainIngredients = cache(async () => {
 });
 
 export const getMainIngredientsById = cache(async (id: number) => {
-  const mainIngredientsById = await sql<Ingredient[]>`
+  const mainIngredientsById = await sql<
+    {
+      id: number;
+      name: string;
+      slug: string | null;
+      image: string | null;
+      description: string | null;
+      recipe: string | null;
+    }[]
+  >`
     SELECT
       *
     FROM
@@ -51,7 +86,16 @@ export const getMainIngredientsById = cache(async (id: number) => {
 });
 
 export const getMainIngredientBySlug = cache(async (slug: string) => {
-  const [mainIngredientBySlug] = await sql<Ingredient[]>`
+  const [mainIngredientBySlug] = await sql<
+    {
+      id: number;
+      name: string;
+      slug: string | null;
+      image: string | null;
+      description: string | null;
+      recipe: string | null;
+    }[]
+  >`
     SELECT
       *
     FROM
