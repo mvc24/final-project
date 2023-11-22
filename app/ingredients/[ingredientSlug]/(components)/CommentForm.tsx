@@ -2,7 +2,6 @@
 
 import { gql, useMutation, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-import { Router } from 'next/router';
 import { useState } from 'react';
 import { Comment } from '../../../../util/types';
 
