@@ -11,7 +11,7 @@ export const { getClient } = registerApolloClient(() => {
     uri: "https://final-project-uplevled-sage.vercel.app/api/graphql",
 
 
-    credentials: 'same-origin',
+   // credentials: 'same-origin',
   });
 
   headers();
