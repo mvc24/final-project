@@ -60,7 +60,7 @@ export const ingredients: Ingredient[] = [
     id: 5,
     name: `kale & cavolo nero`,
     slug: 'kale',
-    image: 'sage/fennel_eclibx',
+    image: 'sage/kale_qmjifl',
     description: `Kale and cavolo nero are leafy greens belonging to the cabbage family that offer a wealth of flavours and textures to elevate your dishes.\n
 
     Kale, with its curly leaves and vibrant green color, has a slightly bitter taste that mellows when cooked. It can be enjoyed raw in salads, but then it might be a good idea to cut it into thin strips and massaging it with a bit of salt to make it soft and way more enjoyable. When cooked, kale becomes tender and develops a rich flavour that pairs well with garlic, lemon, and anchovies or parmesan (or both).\n
