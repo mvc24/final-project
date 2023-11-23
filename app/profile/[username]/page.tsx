@@ -52,7 +52,7 @@ export default async function UserProfilePage() {
       token: sessionToken?.value || '',
     },
   });
-  console.log('data on user profile page: ', data.loggedInUser);
+  // console.log('data on user profile page: ', data.loggedInUser);
 
   if (!data.loggedInUser) {
     redirect('/login');
