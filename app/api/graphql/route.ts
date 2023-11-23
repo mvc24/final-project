@@ -4,7 +4,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
@@ -251,8 +251,8 @@ const resolvers = {
           expiresIn: '24h',
         };
 
-
-        const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+        const token = "thisIsAPieceOfSh"
+       //  const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
         // console.log('token: ', token);
 
         const session = await createSession(newUser.id, token);
@@ -305,7 +305,9 @@ const resolvers = {
         const options = {
           expiresIn: '24h',
         };
-        const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+
+        const token = "thisIsAPieceOfSh"
+        // const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
         console.log('token: ', token);
 
         const session = await createSession(user.id, token);
