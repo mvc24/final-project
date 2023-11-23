@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { gql } from '@apollo/client';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
@@ -242,17 +243,8 @@ const resolvers = {
 
         console.log('create user: ', newUser);
 
-        const payload = {
-          userId: newUser.id,
-          username: newUser.username,
-          email: newUser.email,
-        };
-        const options = {
-          expiresIn: '24h',
-        };
 
-        const token = "thisIsAPieceOfSh"
-       //  const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+        const token = crypto.randomBytes(80).toString('base64')
         // console.log('token: ', token);
 
         const session = await createSession(newUser.id, token);
@@ -297,17 +289,9 @@ const resolvers = {
       );
 
       if (isValid) {
-        const payload = {
-          userId: user.id,
-          username: user.username,
-          email: user.email,
-        };
-        const options = {
-          expiresIn: '24h',
-        };
 
-        const token = "thisIsAPieceOfSh"
-        // const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
+
+        const token = crypto.randomBytes(80).toString('base64')
         console.log('token: ', token);
 
         const session = await createSession(user.id, token);
