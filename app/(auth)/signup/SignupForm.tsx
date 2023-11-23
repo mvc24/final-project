@@ -45,7 +45,7 @@ export default function SignUpForm(props: Props) {
     },
   });
 
-  console.log('SignUp mutation: ', signUpMutation);
+  // console.log('SignUp mutation: ', signUpMutation);
 
   return (
     <div className="container contentSection">

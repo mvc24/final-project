@@ -250,8 +250,10 @@ const resolvers = {
         const options = {
           expiresIn: '24h',
         };
+
+
         const token = jwt.sign(payload, process.env.JWT_SECRET!, options);
-        console.log('token: ', token);
+        // console.log('token: ', token);
 
         const session = await createSession(newUser.id, token);
 
