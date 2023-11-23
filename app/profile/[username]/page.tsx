@@ -61,7 +61,7 @@ export default async function UserProfilePage() {
   //  console.log('typeof data user profile page', typeof data);
 
   return (
-    <main className="contentSection p-6 w-5/6 mx-auto text-center">
+    <main className="p-6 w-5/6 mx-auto text-center">
       <h1 className="mx-auto pb-8 text-2xl text-decoration-600 font-bold">
         Welcome, {data.loggedInUser.username}!
       </h1>
@@ -84,13 +84,10 @@ export default async function UserProfilePage() {
           <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
             your comments
           </h2>
-          {data.length === 0 ? (
-            `you haven't left any comments yet`
-          ) : (
-            <div className="">
-              <CommentsFeedOnProfile username={data.loggedInUser.username} />
-            </div>
-          )}
+
+          <div className="">
+            <CommentsFeedOnProfile username={data.loggedInUser.username} />
+          </div>
         </div>
         <div className="">
           <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
