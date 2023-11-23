@@ -7,12 +7,12 @@ import {
 } from '../../../database/ingredientCombos';
 import { getMainIngredientBySlug } from '../../../database/ingredients';
 import { getClient } from '../../../util/apolloClient';
-import DisplayComboTags from './(components)/ComboTags';
-import CreateCommentForm from './(components)/CommentForm';
-import CommentsFeed from './(components)/CommentsFeed';
-import Description from './(components)/Description';
-import Images from './(components)/Images';
-import Recipe from './(components)/Recipe';
+import DisplayComboTags from '../../Components/ComboTags';
+import CreateCommentForm from '../../Components/CommentForm';
+import CommentsFeed from '../../Components/CommentsFeed';
+import Description from '../../Components/Description';
+import Images from '../../Components/Images';
+import Recipe from '../../Components/Recipe';
 
 type Props = {
   params: {
@@ -21,9 +21,9 @@ type Props = {
 };
 
 export default async function IngredientPage(props: Props) {
-  console.log('props.params on ingredient page: ', props.params);
+  // console.log('props.params on ingredient page: ', props.params);
 
-  console.log('single ingredient page props: ', props);
+  // console.log('single ingredient page props: ', props);
 
   const mainIngredient = await getMainIngredientBySlug(
     props.params.ingredientSlug,
@@ -116,7 +116,7 @@ export default async function IngredientPage(props: Props) {
 
             if (matchedIngredients.length > 0) {
               const ingredientString = ingredients.join(' + ');
-              console.log('ingredientString: ', ingredientString);
+              // console.log('ingredientString: ', ingredientString);
               return (
                 <div
                   className="drop-shadow-md"

@@ -3,7 +3,7 @@
 import { gql, useMutation, useSuspenseQuery } from '@apollo/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Comment } from '../../../../util/types';
+import { Comment } from '../../util/types';
 
 const createCommentMutation = gql`
   mutation CreateComment($userId: ID!, $body: String!, $ingredientId: Int!) {

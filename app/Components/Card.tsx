@@ -1,10 +1,8 @@
 'use client';
 import { CldImage } from 'next-cloudinary';
-import { MainIngredientProps } from '../../../../util/types';
+import { MainIngredientProps } from '../../util/types';
 
 export default function Card(props: MainIngredientProps) {
-  // console.log('props: ', props);
-  console.log('props.props: ', props.props);
   const ingredient = props.props;
   return (
     <div className="card w-60 bg-base-100 shadow-xl text-center">

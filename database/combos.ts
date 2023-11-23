@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
-import { Combo } from '../app/data/combosTagsPairsData';
 import { sql } from '../database/connect';
+import { Combo } from '../migrations/00010-insertCombos';
 
 export const getCombos = cache(async () => {
   const combos = await sql<Combo[]>`

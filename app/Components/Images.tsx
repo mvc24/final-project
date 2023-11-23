@@ -1,6 +1,6 @@
 'use client';
 import { CldImage } from 'next-cloudinary';
-import { Ingredient } from '../../../../util/types';
+import { Ingredient } from '../../util/types';
 
 type Props = {
   ingredient: Ingredient;

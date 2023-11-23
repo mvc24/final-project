@@ -1,4 +1,4 @@
-import { getCommentsByIngredientSlug } from '../../../../database/comments';
+import { getCommentsByIngredientSlug } from '../../database/comments';
 
 type Props = {
   slug: string;
@@ -7,7 +7,7 @@ type Props = {
 export default async function CommentsFeed({ slug }: Props) {
   const showComments = await getCommentsByIngredientSlug(slug);
 
-  console.log('data on comments feed: ', showComments);
+  // console.log('data on comments feed: ', showComments);
   return (
     <div>
       <h2 className="font-bold text-decoration-600 mx-auto text-center text-2xl/loose">

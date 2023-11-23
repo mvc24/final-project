@@ -10,7 +10,7 @@ import sageLogo from '../public/images/sageLogo.svg';
 import { getClient } from '../util/apolloClient';
 import LogoutButton from './(auth)/logout/LogoutButton';
 import { ApolloClientProvider } from './ApolloClientProvider';
-import IngredientLinks from './IngredientLinks';
+import IngredientLinks from './Components/IngredientLinks';
 
 const outfit = Outfit({ subsets: ['latin'] });
 

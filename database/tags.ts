@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
-import { Tag } from '../app/data/tagsData';
 import { sql } from '../database/connect';
+import { Tag } from '../migrations/00012-insertTags';
 
 export const getTags = cache(async () => {
   const tags = await sql<Tag[]>`

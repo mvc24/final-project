@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { getMainIngredients } from '../database/ingredients';
-import { Ingredient } from '../util/types';
+import { getMainIngredients } from '../../database/ingredients';
+import { Ingredient } from '../../util/types';
 
 type Props = {
   ingredients: Ingredient[];
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function IngredientLinks({ ingredients }: Props) {
   const mainIngredients = getMainIngredients();
-  console.log('props on IngredientLinks: ', ingredients);
+  // console.log('props on IngredientLinks: ', ingredients);
 
   return (
     <ul>

@@ -12,18 +12,16 @@ export default function HowToPage() {
           lists, but it honestly is my go-to book when I feel a bit stuck in my
           cooking or I need a new idea for something I have in my fridge.
         </p>
-
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
           My Approach to Cooking
         </h2>
-
         <ul>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
               Mix and Match Magic:{' '}
             </strong>
             The combinations aren't recipes, they're more like ingredient trios
-            or quartets that will surprise you with amazing flavors when
+            or quartets that will surprise you with amazing flavours when
             combined.
           </li>
           <li className="font-light">
@@ -47,11 +45,9 @@ export default function HowToPage() {
             be truly magical and won't involve much cleanup.
           </li>
         </ul>
-
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
           Tips and Tricks{' '}
         </h2>
-
         <ul>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
@@ -67,37 +63,33 @@ export default function HowToPage() {
               No Recipes, Just Ideas:{' '}
             </strong>
             I'm all about sparking your creativity. These combos are meant to
-            jumpstart your culinary adventure.
+            jump start your culinary adventure.
           </li>
         </ul>
-
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
           Usage Flexibility{' '}
         </h2>
-
         <ul>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
               {' '}
               Endless Possibilities:{' '}
             </strong>
-            Each combo is versatile; you can use it in numerous ways depending
-            on your mood and culinary prowess.
+            Each combination is versatile; you can use it in numerous ways
+            depending on your mood and and culinary skills.
           </li>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
               {' '}
               Seek Guidance if Needed:{' '}
             </strong>
-            If you're a newbie or just want more direction, online recipes from
-            trusted sources can guide you through.
+            If you're a newbie or just want more direction, have a look at the
+            suggestions on where to look below.
           </li>
         </ul>
-
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
           Tags to Navigate
         </h2>
-
         <ul>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
@@ -105,7 +97,7 @@ export default function HowToPage() {
               Categories:
             </strong>{' '}
             Think broad strokes here—ideas that popped into my head and ended up
-            being flavor matches.
+            being flavour matches.
           </li>
           <li className="font-light">
             <strong className="font-medium text-decoration-600 text-lg lowercase">
@@ -124,16 +116,14 @@ export default function HowToPage() {
             others are year-round champs.
           </li>
         </ul>
-
         <h2 className="font-bold mx-auto mb-2  text-decoration-600 text-xl lowercase">
           Where to Find More
         </h2>
-        <p className="prose font-light">
-          Here are a few websites to check out for tested and inspiring recipes,
-          like the regular columns by Nigel Slater, Yotam Ottolenghi or Nigella
-          Lawson in the Observer magazine.
+        <p>
+          <strong className="font-medium text-decoration-600 text-lg lowercase">
+            online resources
+          </strong>
         </p>
-
         <ul>
           <li>
             <a
@@ -141,7 +131,9 @@ export default function HowToPage() {
               href="https//www.theguardian.com/lifeandstyle/series/nigelslaterrecipe"
             >
               The Guardian Observer Magazine
-            </a>
+            </a>{' '}
+            bringing regular columns by culinary powerhouses like Nigel Slater,
+            Yotam Ottolenghi or Nigella Lawson
           </li>
           <li>
             <a
@@ -149,7 +141,9 @@ export default function HowToPage() {
               href="https//www.bbcgoodfood.com/"
             >
               BBC Good Food
-            </a>
+            </a>{' '}
+            housing a huge collection of recipes, also based on popular TV
+            programmes
           </li>
           <li>
             <a
@@ -157,11 +151,26 @@ export default function HowToPage() {
               href="https//www.seriouseats.com/"
             >
               Serious Eats
-            </a>
+            </a>{' '}
+            Kenji Lopez-Alt's blog with tons of information
           </li>
         </ul>
+        <p>
+          <strong className="font-medium text-decoration-600 text-lg lowercase">
+            favourite books
+          </strong>
+        </p>
+        <ul>
+          <li className="">
+            Nigel Slater: Eat (but almost everything he writes falls into that
+            category)
+          </li>
+          <li>Ruby Tandoh: Cook as you are</li>
+          <li>Anna Jones: One</li>
+          <li>Samin Nosrat: Salt, Fat, Acid, Heat</li>
+        </ul>
         <p className="prose font-light">
-          Remember, these combinations are like keys to unlock new flavors in
+          Remember, these combinations are like keys to unlock new flavours in
           your kitchen. So here are a few suggestions on where you could go to
           find reliable recipes, Feel free to explore and make them your own! 🌟
         </p>

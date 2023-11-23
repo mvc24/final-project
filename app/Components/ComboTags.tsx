@@ -1,5 +1,5 @@
-import { getIngredientComboTags } from '../../../../database/ingredientComboTags';
-import { ComboTags } from '../../../../util/types';
+import { getIngredientComboTags } from '../../database/ingredientComboTags';
+import { ComboTags } from '../../util/types';
 
 export default async function DisplayComboTags(props: ComboTags) {
   // const tagTypes = await getTagTypes();
@@ -16,7 +16,7 @@ export default async function DisplayComboTags(props: ComboTags) {
       tag.tagNames ? groupedTags[tag.type]?.push(...tag.tagNames) : [];
     }
   });
-  console.log('groupedTags: ', groupedTags);
+  // console.log('groupedTags: ', groupedTags);
 
   return (
     <div className="">

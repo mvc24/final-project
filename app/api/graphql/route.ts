@@ -5,7 +5,6 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { makeExecutableSchema } from '@graphql-tools/schema';
 import bcrypt from 'bcrypt';
 import { GraphQLError } from 'graphql';
-// import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
@@ -34,6 +33,7 @@ import {
   getUserByUsername,
   getUsers,
 } from '../../../database/users';
+import { secureCookieOptions } from '../../../util/cookies';
 import { User } from '../../../util/types';
 
 export type GraphQlResponseBody =
@@ -130,6 +130,7 @@ const typeDefs = gql`
   type LoggedInUser {
     id: ID!
     username: String!
+    email: String!
   }
 
   type Query {
@@ -241,10 +242,9 @@ const resolvers = {
           throw new GraphQLError('No user was created.');
         }
 
-        console.log('create user: ', newUser);
+        // console.log('create user: ', newUser);
 
-
-        const token = crypto.randomBytes(80).toString('base64')
+        const token = crypto.randomBytes(80).toString('base64');
         // console.log('token: ', token);
 
         const session = await createSession(newUser.id, token);
@@ -256,9 +256,10 @@ const resolvers = {
         cookies().set({
           name: 'sessionToken',
           value: session.token,
+          ...secureCookieOptions,
         });
 
-        console.log('session token in sign up: ', session.token);
+        // console.log('session token in sign up: ', session.token);
 
         return await getUserBySessionToken(session.token);
       }
@@ -289,9 +290,7 @@ const resolvers = {
       );
 
       if (isValid) {
-
-
-        const token = crypto.randomBytes(80).toString('base64')
+        const token = crypto.randomBytes(80).toString('base64');
         console.log('token: ', token);
 
         const session = await createSession(user.id, token);
@@ -303,9 +302,10 @@ const resolvers = {
         cookies().set({
           name: 'sessionToken',
           value: session.token,
+          ...secureCookieOptions,
         });
 
-        console.log('session token in login: ', session.token);
+        //  console.log('session token in login: ', session.token);
 
         return getUserBySessionToken(session.token);
       } else {
@@ -359,8 +359,8 @@ const handler = startServerAndCreateNextHandler<NextRequest>(apolloServer, {
     const user = isLoggedIn
       ? await getUserBySessionToken(sessionTokenCookie.value)
       : undefined;
-    console.log('sessionTokenCookie in handler: ', sessionTokenCookie);
-    console.log('isLoggedIn: ', isLoggedIn);
+    // console.log('sessionTokenCookie in handler: ', sessionTokenCookie);
+    // console.log('isLoggedIn: ', isLoggedIn);
 
     return {
       req,

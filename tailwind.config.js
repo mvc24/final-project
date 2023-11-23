@@ -60,9 +60,7 @@ module.exports = {
         900: '#42391A',
         950: '#211D0D',
       },
-      success: '#555B6E',
-      warning: '#eab308',
-      error: '#e75f68',
+
     },
 
     extend: {
@@ -72,7 +70,9 @@ module.exports = {
       },
     },
   },
-  daisyui: {},
+  daisyui: {
+    darkTheme: false
+  },
   plugins: [
     require('@tailwindcss/typography'),
     require('daisyui'),

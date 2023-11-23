@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 import Link from 'next/link';
 import { getClient } from '../../util/apolloClient';
 import { MainIngredientResponse } from '../../util/types';
-import Card from './[ingredientSlug]/(components)/Card';
+import Card from '../Components/Card';
 
 export default async function Ingredients() {
   const { data } = await getClient().query<MainIngredientResponse>({

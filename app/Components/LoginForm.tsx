@@ -4,7 +4,7 @@ import { gql, useMutation } from '@apollo/client';
 import { Route } from 'next';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { getSafeReturnToPath } from '../../../util/validation';
+import { getSafeReturnToPath } from '../../util/validation';
 
 type Props = { returnTo?: string | string[] };
 
@@ -34,11 +34,12 @@ export default function LoginForm(props: Props) {
     },
 
     onCompleted: () => {
-      router.refresh();
+
       router.push(
         getSafeReturnToPath(props.returnTo) ||
           (`/profile/${username}` as Route),
       );
+      router.refresh();
     },
   });
 
