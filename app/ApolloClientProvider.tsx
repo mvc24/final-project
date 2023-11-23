@@ -12,8 +12,9 @@ function makeClient() {
   const httpLink = new HttpLink({
     // uri: `${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`,
     // uri: 'https://final-project-upleveled-sage.fly.dev/api/graphql',
+    uri: "https://final-project-uplevled-sage.vercel.app/api/graphql",
 
-    uri: 'http://localhost:3000/api/graphql',
+    // uri: 'http://localhost:3000/api/graphql',
     // uri: 'api/graphql',
     fetchOptions: { cache: 'no-store' },
   });
