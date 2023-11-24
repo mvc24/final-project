@@ -137,6 +137,9 @@ export default async function IngredientPage(props: Props) {
             }
             return null; // If there's no matching ingredient, don't render anything
           })}
+          <p className="font-light text-center">
+            more combinations coming soon!
+          </p>
         </div>
         <div className="col-span-6 md:col-span-3 font-light md:col-start-4">
           <h2 className="font-bold text-center text-decoration-600 text-2xl/loose">
