@@ -23,6 +23,22 @@ export const combos: Combo[] = [
   { id: 17 },
   { id: 18 },
   { id: 19 },
+  { id: 39 },
+  { id: 49 },
+  { id: 57 },
+  { id: 59 },
+  { id: 68 },
+  { id: 69 },
+  { id: 79 },
+  { id: 83 },
+  { id: 84 },
+  { id: 87 },
+  { id: 96 },
+  { id: 119 },
+  { id: 120 },
+  { id: 123 },
+  { id: 126 },
+  { id: 129 },
 ];
 
 export async function up(sql: Sql) {

@@ -112,6 +112,26 @@ export const tags: Tag[] = [
     type: 'howto',
     name: 'part of a spread',
   },
+  {
+    id: 22,
+    type: 'category',
+    name: 'oriental',
+  },
+  {
+    id: 23,
+    type: 'instruction',
+    name: 'as stew/curry/casserole',
+  },
+  {
+    id: 24,
+    type: 'category',
+    name: 'asian',
+  },
+  {
+    id: 25,
+    type: 'instruction',
+    name: 'with rice',
+  },
 ];
 
 export async function up(sql: Sql) {
