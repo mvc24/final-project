@@ -1,5 +1,7 @@
 FROM node:lts-alpine AS builder
 ENV NODE_ENV production
+# cloudinary variable
+ENV NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="dnzitfasn"
 # Install necessary tools
 RUN apk add --no-cache libc6-compat yq --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 # Install pnpm
