@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# sage - a culinary inspiration web app
 
-## Getting Started
+This project is a web application dedicated to empowering culinary creativity by offering curated vegetarian ingredient combinations rather than traditional recipes. Built during a full stack web development bootcamp, it's designed to assist users in exploring diverse cooking ideas using easily accessible pantry ingredients.
 
-First, run the development server:
+**why sage?**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Not only is a sage a wise person, it is incidentally also one of my favourite herbs. And as simply as that, there was a name.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features and Technologies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Dynamic Exploration:** Users can explore a variety of ingredient combinations sourced from books and personal experience.
+- **GraphQL-Powered Interaction:** Utilizes GraphQL and Apollo for seamless user interaction and efficient data retrieval.
+- **Database Management:** Employed Postgres with data normalization via drawSQL to handle complex many-to-many relationships.
+- **Responsive Design:** Crafted using NextJS, TailwindCSS and DaisyUI, ensuring a responsive and visually appealing interface.
+- **User Engagement:** Enables secure user authentication, commenting, and plans for future enhancements like user notes and favorites.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Screenshots
 
-## Learn More
+**Schema for my database**
 
-To learn more about Next.js, take a look at the following resources:
+![drawSQL database schema] (/public/images/drawsql-schema.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Page for a single ingredient**
+![screenshot of the page for kale & cavolo nero] (public/images/screenshot-kale-page.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Sample combinations with tags**
+![screenshot of two possible combinations for pumpkin] (public/images/screenshot-combinations.png)

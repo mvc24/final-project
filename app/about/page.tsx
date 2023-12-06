@@ -23,7 +23,7 @@ export default function About() {
         </h2>
         <div>
           <p className="prose font-light">
-            Not only is sage a wise person, it is incidentally also one of my
+            Not only is a sage a wise person, it is incidentally also one of my
             favourite herbs. And as simply as that, there was a name.
           </p>
 
