@@ -18,10 +18,10 @@ Not only is a sage a wise person, it is incidentally also one of my favourite he
 
 **Schema for my database**
 
-![drawSQL database schema] (/public/images/drawsql-schema.png)
+![drawSQL database schema](/public/images/drawsql-schema.png)
 
 **Page for a single ingredient**
-![screenshot of the page for kale & cavolo nero] (public/images/screenshot-kale-page.png)
+![screenshot of the page for kale & cavolo nero](/public/images/screenshot-kale-page.png)
 
 **Sample combinations with tags**
-![screenshot of two possible combinations for pumpkin] (public/images/screenshot-combinations.png)
+![screenshot of two possible combinations for pumpkin](/public/images/screenshot-combinations.png)
